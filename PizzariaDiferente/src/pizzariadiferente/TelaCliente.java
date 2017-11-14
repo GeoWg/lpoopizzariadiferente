@@ -5,6 +5,11 @@
  */
 package pizzariadiferente;
 
+import Bean.Cliente;
+import DAO.ClienteDAO;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author George
@@ -14,10 +19,22 @@ public class TelaCliente extends javax.swing.JFrame {
     /**
      * Creates new form TelaCliente
      */
+    private ModeloTabelaCliente modeloTabela;
+    private int linhaClicada=-1;
     public TelaCliente() {
+        modeloTabela = new ModeloTabelaCliente();
         initComponents();
+        try {
+            ClienteDAO dao = new ClienteDAO();
+            List<Cliente> lista = dao.getAll();
+            modeloTabela.setListaClientes(lista);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,17 +63,7 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        jTable2.setModel(modeloTabela);
         jScrollPane2.setViewportView(jTable2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,7 +99,9 @@ public class TelaCliente extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -122,7 +131,7 @@ public class TelaCliente extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+            public void run() {                
                 new TelaCliente().setVisible(true);
             }
         });
