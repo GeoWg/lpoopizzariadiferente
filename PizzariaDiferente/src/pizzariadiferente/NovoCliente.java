@@ -5,6 +5,10 @@
  */
 package pizzariadiferente;
 
+import Bean.Cliente;
+import DAO.ClienteDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author George
@@ -27,40 +31,50 @@ public class NovoCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        clienteTituloLabel = new javax.swing.JLabel();
+        nomeLabel = new javax.swing.JLabel();
+        nomeTextField = new javax.swing.JTextField();
+        sobrenomeLabel = new javax.swing.JLabel();
+        sobrenomeTextField = new javax.swing.JTextField();
+        telefoneLabel = new javax.swing.JLabel();
+        telefoneTextField = new javax.swing.JTextField();
+        enderecoLabel = new javax.swing.JLabel();
+        enderecoTextField = new javax.swing.JTextField();
+        salvarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel1.setText("Novo Cliente");
+        clienteTituloLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        clienteTituloLabel.setText("Novo Cliente");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setText("Nome");
+        nomeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        nomeLabel.setText("Nome");
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        nomeTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel3.setText("Sobrenome");
+        sobrenomeLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sobrenomeLabel.setText("Sobrenome");
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        sobrenomeTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setText("Telefone");
+        telefoneLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        telefoneLabel.setText("Telefone");
 
-        jTextField3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jButton1.setText("Salvar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        telefoneTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        telefoneTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                telefoneTextFieldActionPerformed(evt);
+            }
+        });
+
+        enderecoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        enderecoLabel.setText("Endereco");
+
+        salvarButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        salvarButton.setText("Salvar");
+        salvarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salvarButtonActionPerformed(evt);
             }
         });
 
@@ -72,58 +86,101 @@ public class NovoCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(clienteTituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jLabel4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2)
-                            .addComponent(jTextField3))))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(339, 339, 339)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(339, 339, 339)
+                        .addComponent(salvarButton)))
+                .addContainerGap(244, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nomeLabel)
+                    .addComponent(sobrenomeLabel)
+                    .addComponent(telefoneLabel)
+                    .addComponent(enderecoLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nomeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(sobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {enderecoTextField, nomeTextField, sobrenomeTextField, telefoneTextField});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {enderecoLabel, telefoneLabel});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(clienteTituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nomeLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(sobrenomeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(telefoneLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(sobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(59, 59, 59)
-                .addComponent(jButton1)
-                .addContainerGap(61, Short.MAX_VALUE))
+                    .addComponent(enderecoLabel)
+                    .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvarButton)
+                .addContainerGap(127, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {enderecoLabel, enderecoTextField, nomeLabel, nomeTextField, sobrenomeLabel, sobrenomeTextField, telefoneLabel, telefoneTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+        Cliente c = new Cliente();
+        ClienteDAO cd = new ClienteDAO();
+        TelaCliente tc = new TelaCliente();
+        NovoCliente nc = new NovoCliente();
+        boolean valido = false;
+        while(valido){
+        if ( nomeTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome");
+        }else{
+            c.setNome(nomeTextField.getText());
+        }
+        if ( sobrenomeTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome");
+        }else{
+            c.setSobreNome(sobrenomeTextField.getText());
+        }        
+        if ( telefoneTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone");
+        }else{
+            c.setTelefone(telefoneTextField.getText());
+        }
+        if ( enderecoTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereco");
+        }else{
+            c.setEndereco(enderecoTextField.getText());
+        }
+        valido = true;
+        cd.insert(c);
+        }
+        dispose();
+        tc.setVisible(true);
+    }//GEN-LAST:event_salvarButtonActionPerformed
+
+    private void telefoneTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_telefoneTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,13 +219,15 @@ public class NovoCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel clienteTituloLabel;
+    private javax.swing.JLabel enderecoLabel;
+    private javax.swing.JTextField enderecoTextField;
+    private javax.swing.JLabel nomeLabel;
+    private javax.swing.JTextField nomeTextField;
+    private javax.swing.JButton salvarButton;
+    private javax.swing.JLabel sobrenomeLabel;
+    private javax.swing.JTextField sobrenomeTextField;
+    private javax.swing.JLabel telefoneLabel;
+    private javax.swing.JTextField telefoneTextField;
     // End of variables declaration//GEN-END:variables
 }
