@@ -11,7 +11,6 @@ package Bean;
  */
 public abstract class Forma {
     
-    
     public abstract double getArea();
     public abstract double getMedida();
 

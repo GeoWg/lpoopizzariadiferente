@@ -21,7 +21,7 @@ public class ClienteDAO {
     private final String insertStm = "INSERT INTO cliente (nome,sobrenome,telefone,endereco) VALUES (?,?,?,?)";
     private final String updateStm = "UPDATE cliente SET  nome = ? ,sobrenome = ? ,telefone = ? ,endereco = ? WHERE idCliente =  ?";
     private final String deleteStm = "DELETE FROM cliente WHERE idCliente = ?";
-    private final String getAll = "SELECT * FROM cliente";
+    private final String getAll = "SELECT * FROM cliente ORDER BY idCliente DESC";
     private final String getByTelefone = "SELECT * FROM cliente WHERE telefone = ?";
     
     public Cliente insert(Cliente cliente){
@@ -113,8 +113,8 @@ public class ClienteDAO {
         return clientes;
     }
     
-    public List<Cliente> getByTelefone(String fone){
-        List<Cliente> clientes = new ArrayList<Cliente>();
+    public Cliente getByTelefone(String fone){
+        Cliente c = new Cliente();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -123,14 +123,12 @@ public class ClienteDAO {
             stmt = con.prepareStatement(getByTelefone);
             stmt.setString(1, fone);
             rs = stmt.executeQuery();
-            while(rs.next()){
-                int id = rs.getInt("idCliente");
-                String nome = rs.getString("nome");
-                String sobre = rs.getString("sobrenome");
-                String endereco = rs.getString("endereco");
-                String telefone = rs.getString("telefone");
-                Cliente cli = new Cliente(id, nome, sobre, endereco, telefone);
-                clientes.add(cli);
+            if(rs.next()){
+                c.setId(rs.getInt("idCliente"));
+                c.setNome(rs.getString("nome"));
+                c.setSobreNome(rs.getString("sobrenome"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setTelefone(rs.getString("telefone"));
             }
         } catch (Exception ex) {
             throw new RuntimeException("Erro. Origem="+ex.getMessage());
@@ -138,6 +136,6 @@ public class ClienteDAO {
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
         }
-        return clientes;
+        return c;
     }
 }

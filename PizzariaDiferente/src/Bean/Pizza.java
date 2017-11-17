@@ -24,7 +24,7 @@ public class Pizza {
     public Forma getForma() {
         return forma;
     }
-
+        
     public void setForma(Forma forma) {
         this.forma = forma;
     }
