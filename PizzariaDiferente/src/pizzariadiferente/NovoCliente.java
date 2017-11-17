@@ -70,6 +70,8 @@ public class NovoCliente extends javax.swing.JFrame {
         enderecoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         enderecoLabel.setText("Endereco");
 
+        enderecoTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
         salvarButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         salvarButton.setText("Salvar");
         salvarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +138,7 @@ public class NovoCliente extends javax.swing.JFrame {
                     .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salvarButton)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {enderecoLabel, enderecoTextField, nomeLabel, nomeTextField, sobrenomeLabel, sobrenomeTextField, telefoneLabel, telefoneTextField});
@@ -152,28 +154,28 @@ public class NovoCliente extends javax.swing.JFrame {
         boolean valido = true;
       
         if (nomeTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setNome(nomeTextField.getText());
         }
         
         if (sobrenomeTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setSobreNome(sobrenomeTextField.getText());
         } 
         
         if (telefoneTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone","ERRO", JOptionPane.ERROR_MESSAGE);
            return;
         }else{
             c.setTelefone(telefoneTextField.getText());
         }
         
         if (enderecoTextField.getText().trim().length() == 0){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereco");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereço","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setEndereco(enderecoTextField.getText());
