@@ -101,7 +101,7 @@ public class ClienteDAO {
                 String sobre = rs.getString("sobrenome");
                 String endereco = rs.getString("endereco");
                 String telefone = rs.getString("telefone");
-                Cliente cli = new Cliente(id, nome, sobre, endereco, telefone);
+                Cliente cli = new Cliente(id, nome, sobre,telefone, endereco);
                 clientes.add(cli);
             }
         } catch (Exception ex) {

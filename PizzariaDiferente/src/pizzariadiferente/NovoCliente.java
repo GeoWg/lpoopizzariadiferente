@@ -15,13 +15,28 @@ import javax.swing.JOptionPane;
  */
 public class NovoCliente extends javax.swing.JFrame {
 
+    Cliente cliente= new Cliente();
     /**
      * Creates new form novoCliente
      */
     public NovoCliente() {
         initComponents();
     }
-
+    
+    public void setCliente(Cliente cliente)
+    {
+        this.cliente  = cliente;
+        if(cliente.getId() != 0){
+            nomeTextField.setText(cliente.getNome());
+            sobrenomeTextField.setText(cliente.getSobreNome());
+            telefoneTextField.setText(cliente.getTelefone());
+            enderecoTextField.setText(cliente.getEndereco());
+            clienteTituloLabel.setText("Atualizar Cliente");
+            salvarButton.setVisible(false);
+            Atualizar.setVisible(true);
+        }
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +56,7 @@ public class NovoCliente extends javax.swing.JFrame {
         enderecoLabel = new javax.swing.JLabel();
         enderecoTextField = new javax.swing.JTextField();
         salvarButton = new javax.swing.JButton();
+        Atualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,33 +94,47 @@ public class NovoCliente extends javax.swing.JFrame {
             }
         });
 
+        Atualizar.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        Atualizar.setText("Atualizar");
+        Atualizar.setActionCommand("Atualizar");
+        Atualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(289, 289, 289)
-                        .addComponent(clienteTituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(339, 339, 339)
-                        .addComponent(salvarButton)))
-                .addContainerGap(244, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nomeLabel)
-                    .addComponent(sobrenomeLabel)
-                    .addComponent(telefoneLabel)
-                    .addComponent(enderecoLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(nomeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(sobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nomeLabel)
+                            .addComponent(sobrenomeLabel)
+                            .addComponent(telefoneLabel)
+                            .addComponent(enderecoLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(nomeTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(sobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 681, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Atualizar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(salvarButton)
+                                .addGap(278, 278, 278))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(clienteTituloLabel)
+                                .addGap(318, 318, 318)))))
+                .addGap(46, 46, 46))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {enderecoTextField, nomeTextField, sobrenomeTextField, telefoneTextField});
@@ -135,7 +165,9 @@ public class NovoCliente extends javax.swing.JFrame {
                     .addComponent(enderecoLabel)
                     .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(salvarButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvarButton)
+                    .addComponent(Atualizar))
                 .addContainerGap(127, Short.MAX_VALUE))
         );
 
@@ -143,7 +175,7 @@ public class NovoCliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
         Cliente c = new Cliente();
         ClienteDAO cd = new ClienteDAO();
@@ -189,6 +221,49 @@ public class NovoCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_telefoneTextFieldActionPerformed
 
+    private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
+        // TODO add your handling code here:
+        
+        Cliente c = this.cliente;
+        ClienteDAO cd = new ClienteDAO();
+        TelaCliente tc = new TelaCliente();
+        NovoCliente nc = new NovoCliente();
+        boolean valido = true;
+      
+        if (nomeTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome");
+            return;
+        }else{
+            c.setNome(nomeTextField.getText());
+        }
+        
+        if (sobrenomeTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome");
+            return;
+        }else{
+            c.setSobreNome(sobrenomeTextField.getText());
+        } 
+        
+        if (telefoneTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone");
+           return;
+        }else{
+            c.setTelefone(telefoneTextField.getText());
+        }
+        
+        if (enderecoTextField.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereco");
+            return;
+        }else{
+            c.setEndereco(enderecoTextField.getText());
+        }
+        if(valido){
+            cd.insert(c);
+            dispose();
+            tc.setVisible(true);
+        }
+    }//GEN-LAST:event_AtualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +301,7 @@ public class NovoCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Atualizar;
     private javax.swing.JLabel clienteTituloLabel;
     private javax.swing.JLabel enderecoLabel;
     private javax.swing.JTextField enderecoTextField;

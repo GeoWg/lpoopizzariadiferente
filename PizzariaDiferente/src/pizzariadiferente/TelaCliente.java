@@ -7,6 +7,7 @@ package pizzariadiferente;
 
 import Bean.Cliente;
 import DAO.ClienteDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -44,69 +45,142 @@ public class TelaCliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         clienteLabel = new javax.swing.JLabel();
-        novoButton = new javax.swing.JButton();
         clienteScroll = new javax.swing.JScrollPane();
         clienteTable = new javax.swing.JTable();
+        Atualizar = new javax.swing.JButton();
+        Excluir = new javax.swing.JButton();
+        Novo = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(800, 500));
 
         clienteLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        clienteLabel.setText("Cliente");
+        clienteLabel.setText("Clientes");
 
-        novoButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        novoButton.setText("Novo");
-        novoButton.addActionListener(new java.awt.event.ActionListener() {
+        clienteTable.setModel(modeloTabela);
+        clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clienteTableMouseClicked(evt);
+            }
+        });
+        clienteScroll.setViewportView(clienteTable);
+
+        Atualizar.setText("Atualizar");
+        Atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoButtonActionPerformed(evt);
+                AtualizarActionPerformed(evt);
             }
         });
 
-        clienteTable.setModel(modeloTabela);
-        clienteScroll.setViewportView(clienteTable);
+        Excluir.setText("Excluir");
+        Excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirActionPerformed(evt);
+            }
+        });
+
+        Novo.setText("Novo");
+        Novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NovoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(novoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(107, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(clienteScroll)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(clienteScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Novo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Atualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Excluir)))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clienteLabel, novoButton});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(novoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clienteScroll)
+                .addComponent(clienteScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Excluir)
+                    .addComponent(Atualizar)
+                    .addComponent(Novo))
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clienteLabel, novoButton});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void novoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoButtonActionPerformed
+    private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
+        // TODO add your handling code here:
+        NovoCliente nc = new NovoCliente();
+        int[] linhasSelecionadas = clienteTable.getSelectedRows();
+        if(linhasSelecionadas.length > 0 ){
+            Cliente cliente = modeloTabela.getCliente(linhasSelecionadas[0]);
+            nc.setCliente(cliente);
+            dispose();
+            nc.setVisible(true);
+        }
+        else{
+              JOptionPane.showMessageDialog(null,"Você deve celecionar uma cliente para Atualizar", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_AtualizarActionPerformed
+
+    private void ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirActionPerformed
+        // TODO add your handling code here:
+         try {
+            ClienteDAO dao = new ClienteDAO();
+            int[] linhasSelecionadas = clienteTable.getSelectedRows();
+            List<Cliente> listaExcluir = new ArrayList<Cliente>();
+            for (int i = 0; i < linhasSelecionadas.length; i++) {
+                Cliente cliente = modeloTabela.getCliente(linhasSelecionadas[i]);
+                dao.delete(cliente);
+                listaExcluir.add(cliente);
+            }
+            for(Cliente cliente:listaExcluir){
+                modeloTabela.removeCliente(cliente);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ExcluirActionPerformed
+
+    private void NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoActionPerformed
+        // TODO add your handling code here:
         NovoCliente nc = new NovoCliente();
         dispose();
         nc.setVisible(true);
-    }//GEN-LAST:event_novoButtonActionPerformed
-    
+    }//GEN-LAST:event_NovoActionPerformed
+
+    private void clienteTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clienteTableMouseClicked
+
+       //Pega a linha clicada
+        linhaClicada = clienteTable.rowAtPoint(evt.getPoint());
+        //Pega o contato da linha clidada
+        Cliente cliente = modeloTabela.getCliente(linhaClicada);
+        //Seta os dados nos componentes
+       
+        
+    }//GEN-LAST:event_clienteTableMouseClicked
     
     
     /**
@@ -145,9 +219,12 @@ public class TelaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Atualizar;
+    private javax.swing.JButton Excluir;
+    private javax.swing.JButton Novo;
     private javax.swing.JLabel clienteLabel;
     private javax.swing.JScrollPane clienteScroll;
     private javax.swing.JTable clienteTable;
-    private javax.swing.JButton novoButton;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
