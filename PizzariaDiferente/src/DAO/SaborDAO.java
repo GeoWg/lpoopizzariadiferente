@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -18,8 +18,9 @@ import java.util.List;
  *
  * @author dell-soncini
  */
-public class SaboresDAO {
+public class SaborDAO {
     private String selectAll = "SELECT s.idSabor as id, s.nome as nome, s.descricao as descricao, st.idTipoSabor as idTipo, st.nome as tipoNome, st.preco as preco FROM sabor s INNER JOIN tiposabor st ON s.idtiposabor = st.idtiposabor";
+    private String insertStm = "INSERT INTO sabor (nome, descricao, idTipoSabor) VALUES (?,?,?)";
     
     public List<Sabor> getAll(){
         List<Sabor> sabores = new ArrayList<Sabor>();
@@ -48,5 +49,28 @@ public class SaboresDAO {
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
         }
         return sabores;
+    }
+    
+    public Sabor insert(Sabor sabor){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(insertStm, PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            stmt.setString(1, sabor.getNome());
+            stmt.setString(2, sabor.getDescricao());
+            stmt.setInt(3, sabor.getTipoInt());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            sabor.setId(rs.getInt(1));
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao inserir. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return sabor;
     }
 }

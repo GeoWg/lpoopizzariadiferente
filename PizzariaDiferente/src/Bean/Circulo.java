@@ -13,6 +13,7 @@ public class Circulo extends Forma{
     
     public double raio;
     public double area;
+    
     public Circulo (int raio){
         this.raio = raio;
     }

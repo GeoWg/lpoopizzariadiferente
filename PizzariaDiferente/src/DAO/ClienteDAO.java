@@ -21,8 +21,8 @@ public class ClienteDAO {
     private final String insertStm = "INSERT INTO cliente (nome,sobrenome,telefone,endereco) VALUES (?,?,?,?)";
     private final String updateStm = "UPDATE cliente SET  nome = ? ,sobrenome = ? ,telefone = ? ,endereco = ? WHERE idCliente =  ?";
     private final String deleteStm = "DELETE FROM cliente WHERE idCliente = ?";
-    private final String byId = "SELECT * FROM cliente WHERE idCliente = ?";
     private final String getAll = "SELECT * FROM cliente";
+    private final String getByTelefone = "SELECT * FROM cliente WHERE telefone = ?";
     
     public Cliente insert(Cliente cliente){
         Connection con = null;
@@ -105,7 +105,35 @@ public class ClienteDAO {
                 clientes.add(cli);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Erro . Origem="+ex.getMessage());
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return clientes;
+    }
+    
+    public List<Cliente> getByTelefone(String fone){
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(getByTelefone);
+            stmt.setString(1, fone);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("idCliente");
+                String nome = rs.getString("nome");
+                String sobre = rs.getString("sobrenome");
+                String endereco = rs.getString("endereco");
+                String telefone = rs.getString("telefone");
+                Cliente cli = new Cliente(id, nome, sobre, endereco, telefone);
+                clientes.add(cli);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
         } finally{
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};

@@ -15,6 +15,9 @@ public class Sabor {
     public String descricao;
     public TipoSabor tipo;
 
+    public Sabor() {
+    }
+
     public Sabor(int id, String nome, String descricao, TipoSabor sabor) {
         this.id = id;
         this.nome = nome;
@@ -56,5 +59,9 @@ public class Sabor {
     
     public double getPreco(){
         return this.tipo.getPreco();
+    }
+    
+    public int getTipoInt(){
+        return tipo.id;
     }
 }

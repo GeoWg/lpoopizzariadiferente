@@ -19,7 +19,10 @@ public class TipoSabor {
         this.nome = nome;
         this.preco = preco;
     }
-    
+
+    public TipoSabor() {
+        
+    }
     public int getId() {
         return id;
     }

@@ -5,10 +5,59 @@
  */
 package Bean;
 
+import java.util.List;
+
 /**
  *
  * @author dell-soncini
  */
 public class Pedido {
+    public int id;
+    public Cliente cliente;
+    public List<Pizza> pizzas;
+    public int valor;
+    public Status status;
+
+    public Pedido() {
+    }
+
+    public Pedido(int id, Cliente cliente, List<Pizza> pizzas, int valor, Status status) {
+        this.id = id;
+        this.cliente = cliente;
+        this.pizzas = pizzas;
+        this.valor = valor;
+        this.status = status;
+    }
     
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Pizza> getPizzas() {
+        return pizzas;
+    }
+
+    public void setPizzas(List<Pizza> pizzas) {
+        this.pizzas = pizzas;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
 }
