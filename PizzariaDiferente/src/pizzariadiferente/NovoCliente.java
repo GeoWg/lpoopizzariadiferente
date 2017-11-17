@@ -70,6 +70,8 @@ public class NovoCliente extends javax.swing.JFrame {
         enderecoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         enderecoLabel.setText("Endereco");
 
+        enderecoTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+
         salvarButton.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         salvarButton.setText("Salvar");
         salvarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +138,7 @@ public class NovoCliente extends javax.swing.JFrame {
                     .addComponent(enderecoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(salvarButton)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {enderecoLabel, enderecoTextField, nomeLabel, nomeTextField, sobrenomeLabel, sobrenomeTextField, telefoneLabel, telefoneTextField});

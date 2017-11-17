@@ -5,6 +5,12 @@
  */
 package pizzariadiferente;
 
+import Bean.Cliente;
+import DAO.ClienteDAO;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author George
@@ -30,8 +36,11 @@ public class TelaPedido extends javax.swing.JFrame {
         pedidoLabel = new javax.swing.JLabel();
         telefoneLabel = new javax.swing.JLabel();
         telefoneTextField = new javax.swing.JTextField();
+        pesquisarButton = new javax.swing.JButton();
         clienteLabel = new javax.swing.JLabel();
         clienteProcuradoLabel = new javax.swing.JLabel();
+        enderecoLabel = new javax.swing.JLabel();
+        enderecoProcuradoLabel = new javax.swing.JLabel();
         addPizzaButton = new javax.swing.JButton();
         totalLabel = new javax.swing.JLabel();
         precoLabel = new javax.swing.JLabel();
@@ -49,10 +58,22 @@ public class TelaPedido extends javax.swing.JFrame {
 
         telefoneTextField.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
 
+        pesquisarButton.setText("Pesquisar");
+        pesquisarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarButtonActionPerformed(evt);
+            }
+        });
+
         clienteLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         clienteLabel.setText("Cliente");
 
         clienteProcuradoLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+
+        enderecoLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        enderecoLabel.setText("Endereco");
+
+        enderecoProcuradoLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
 
         addPizzaButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         addPizzaButton.setText("Adicionar Pizza");
@@ -105,51 +126,77 @@ public class TelaPedido extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telefoneLabel)
-                                    .addComponent(clienteLabel))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(clienteProcuradoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(addPizzaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(totalLabel)
-                                .addGap(18, 18, 18)
-                                .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addComponent(finalizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 26, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(enderecoLabel)
+                                            .addComponent(clienteLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(enderecoProcuradoLabel)
+                                            .addComponent(clienteProcuradoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 625, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(telefoneLabel)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 615, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(pesquisarButton)))))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(addPizzaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(totalLabel)
+                .addGap(18, 18, 18)
+                .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(finalizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clienteLabel, enderecoLabel});
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {clienteProcuradoLabel, enderecoProcuradoLabel});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pedidoLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(telefoneLabel)
-                    .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(telefoneLabel)
+                            .addComponent(telefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(pesquisarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(clienteLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addPizzaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalLabel)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(clienteProcuradoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(finalizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precoLabel))))
-                .addGap(8, 8, 8)
+                            .addComponent(enderecoLabel)
+                            .addComponent(enderecoProcuradoLabel)))
+                    .addComponent(clienteProcuradoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(totalLabel))
+                    .addComponent(precoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addPizzaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(finalizarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clienteLabel, enderecoLabel});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {clienteProcuradoLabel, enderecoProcuradoLabel});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -165,6 +212,24 @@ public class TelaPedido extends javax.swing.JFrame {
         dispose();
         ti.setVisible(true);
     }//GEN-LAST:event_finalizarButtonActionPerformed
+
+    private void pesquisarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarButtonActionPerformed
+        ClienteDAO cd = new ClienteDAO();
+        TelaPedido tp = new TelaPedido();        
+        if (telefoneTextField.getText().trim().length() == 0 ){
+            JOptionPane.showMessageDialog(tp, "Voce precisa preencher o campo telefone");
+           return;
+        }
+        Cliente c = cd.getByTelefone(telefoneTextField.getText());
+        if (c.getId() == 0){
+            JOptionPane.showMessageDialog(tp, "Não possui um cliente com este numero");
+            return;
+        }else{
+            clienteProcuradoLabel.setText(c.getNome());
+            enderecoProcuradoLabel.setText(c.getEndereco());
+            
+        }
+    }//GEN-LAST:event_pesquisarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -205,10 +270,13 @@ public class TelaPedido extends javax.swing.JFrame {
     private javax.swing.JButton addPizzaButton;
     private javax.swing.JLabel clienteLabel;
     private javax.swing.JLabel clienteProcuradoLabel;
+    private javax.swing.JLabel enderecoLabel;
+    private javax.swing.JLabel enderecoProcuradoLabel;
     private javax.swing.JButton finalizarButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel pedidoLabel;
+    private javax.swing.JButton pesquisarButton;
     private javax.swing.JLabel precoLabel;
     private javax.swing.JLabel telefoneLabel;
     private javax.swing.JTextField telefoneTextField;
