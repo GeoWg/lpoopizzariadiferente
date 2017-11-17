@@ -217,17 +217,16 @@ public class TelaPedido extends javax.swing.JFrame {
         ClienteDAO cd = new ClienteDAO();
         TelaPedido tp = new TelaPedido();        
         if (telefoneTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(tp, "Voce precisa preencher o campo telefone");
-           return;
+            JOptionPane.showMessageDialog(tp, "Voce precisa preencher o campo telefone","ERRO", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         Cliente c = cd.getByTelefone(telefoneTextField.getText());
         if (c.getId() == 0){
-            JOptionPane.showMessageDialog(tp, "Não possui um cliente com este numero");
+            JOptionPane.showMessageDialog(tp, "Não possui um cliente com este numero","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             clienteProcuradoLabel.setText(c.getNome());
             enderecoProcuradoLabel.setText(c.getEndereco());
-            
         }
     }//GEN-LAST:event_pesquisarButtonActionPerformed
 

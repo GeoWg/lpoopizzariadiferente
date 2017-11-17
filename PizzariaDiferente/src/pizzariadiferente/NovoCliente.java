@@ -154,28 +154,28 @@ public class NovoCliente extends javax.swing.JFrame {
         boolean valido = true;
       
         if (nomeTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setNome(nomeTextField.getText());
         }
         
         if (sobrenomeTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setSobreNome(sobrenomeTextField.getText());
         } 
         
         if (telefoneTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone","ERRO", JOptionPane.ERROR_MESSAGE);
            return;
         }else{
             c.setTelefone(telefoneTextField.getText());
         }
         
         if (enderecoTextField.getText().trim().length() == 0){
-            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereco");
+            JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereço","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             c.setEndereco(enderecoTextField.getText());
