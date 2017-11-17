@@ -29,9 +29,11 @@ public class TelaCliente extends javax.swing.JFrame {
             ClienteDAO dao = new ClienteDAO();
             List<Cliente> lista = dao.getAll();
             modeloTabela.setListaClientes(lista);
+            modeloTabela.fireTableDataChanged();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,"Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     

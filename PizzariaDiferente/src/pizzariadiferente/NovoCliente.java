@@ -21,6 +21,8 @@ public class NovoCliente extends javax.swing.JFrame {
      */
     public NovoCliente() {
         initComponents();
+        salvarButton.setVisible(true);
+        Atualizar.setVisible(false);
     }
     
     public void setCliente(Cliente cliente)
@@ -181,7 +183,7 @@ public class NovoCliente extends javax.swing.JFrame {
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
         Cliente c = new Cliente();
         ClienteDAO cd = new ClienteDAO();
-        TelaCliente tc = new TelaCliente();
+        
         NovoCliente nc = new NovoCliente();
         boolean valido = true;
       
@@ -215,6 +217,7 @@ public class NovoCliente extends javax.swing.JFrame {
         if(valido){
             cd.insert(c);
             dispose();
+            TelaCliente tc = new TelaCliente();
             tc.setVisible(true);
         }
     }//GEN-LAST:event_salvarButtonActionPerformed
@@ -228,7 +231,6 @@ public class NovoCliente extends javax.swing.JFrame {
         
         Cliente c = this.cliente;
         ClienteDAO cd = new ClienteDAO();
-        TelaCliente tc = new TelaCliente();
         NovoCliente nc = new NovoCliente();
         boolean valido = true;
       
@@ -260,8 +262,9 @@ public class NovoCliente extends javax.swing.JFrame {
             c.setEndereco(enderecoTextField.getText());
         }
         if(valido){
-            cd.insert(c);
+            cd.update(c);
             dispose();
+            TelaCliente tc = new TelaCliente();
             tc.setVisible(true);
         }
     }//GEN-LAST:event_AtualizarActionPerformed
