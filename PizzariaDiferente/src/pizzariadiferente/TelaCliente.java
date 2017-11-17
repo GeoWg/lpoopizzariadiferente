@@ -54,6 +54,12 @@ public class TelaCliente extends javax.swing.JFrame {
         Atualizar = new javax.swing.JButton();
         Excluir = new javax.swing.JButton();
         Novo = new javax.swing.JButton();
+        SobrenomeTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        TelefoneTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        pesquisar = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -62,6 +68,8 @@ public class TelaCliente extends javax.swing.JFrame {
 
         clienteLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         clienteLabel.setText("Clientes");
+
+        clienteScroll.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         clienteTable.setModel(modeloTabela);
         clienteTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,6 +100,38 @@ public class TelaCliente extends javax.swing.JFrame {
             }
         });
 
+        SobrenomeTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SobrenomeTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Sobrenome");
+
+        TelefoneTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TelefoneTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Telefone");
+
+        jButton2.setText("Voltar");
+        jButton2.setToolTipText("");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        pesquisar.setText("Pesquisar");
+        pesquisar.setToolTipText("");
+        pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,25 +141,49 @@ public class TelaCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(clienteScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(298, 298, 298)
-                        .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(Novo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Atualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Excluir)))
+                        .addComponent(Excluir))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(SobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TelefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pesquisar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(clienteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2)))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(SobrenomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(TelefoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(pesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(clienteScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(clienteScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Excluir)
@@ -183,6 +247,34 @@ public class TelaCliente extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_clienteTableMouseClicked
+
+    private void SobrenomeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SobrenomeTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SobrenomeTextFieldActionPerformed
+
+    private void TelefoneTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TelefoneTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TelefoneTextFieldActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        TelaInicial TI = new TelaInicial();
+        dispose();
+        TI.setVisible(true);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
+        // TODO add your handling code here:
+        
+         try {
+            ClienteDAO dao = new ClienteDAO();
+            List<Cliente> lista = dao.getByFilters(TelefoneTextField.getText(),SobrenomeTextField.getText());
+            modeloTabela.setListaClientes(lista);
+            modeloTabela.fireTableDataChanged();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_pesquisarActionPerformed
     
     
     /**
@@ -224,9 +316,15 @@ public class TelaCliente extends javax.swing.JFrame {
     private javax.swing.JButton Atualizar;
     private javax.swing.JButton Excluir;
     private javax.swing.JButton Novo;
+    private javax.swing.JTextField SobrenomeTextField;
+    private javax.swing.JTextField TelefoneTextField;
     private javax.swing.JLabel clienteLabel;
     private javax.swing.JScrollPane clienteScroll;
     private javax.swing.JTable clienteTable;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton pesquisar;
     // End of variables declaration//GEN-END:variables
 }

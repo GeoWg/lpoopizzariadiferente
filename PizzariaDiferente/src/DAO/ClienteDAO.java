@@ -22,6 +22,7 @@ public class ClienteDAO {
     private final String updateStm = "UPDATE cliente SET  nome = ? ,sobrenome = ? ,telefone = ? ,endereco = ? WHERE idCliente =  ?";
     private final String deleteStm = "DELETE FROM cliente WHERE idCliente = ?";
     private final String getAll = "SELECT * FROM cliente ORDER BY idCliente DESC";
+    private final String getByFilter = "SELECT * FROM cliente WHERE telefone like ? AND sobrenome like ? ORDER BY idCliente DESC";
     private final String getByTelefone = "SELECT * FROM cliente WHERE telefone = ?";
     
     public Cliente insert(Cliente cliente){
@@ -94,6 +95,35 @@ public class ClienteDAO {
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(getAll);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("idCliente");
+                String nome = rs.getString("nome");
+                String sobre = rs.getString("sobrenome");
+                String endereco = rs.getString("endereco");
+                String telefone = rs.getString("telefone");
+                Cliente cli = new Cliente(id, nome, sobre,telefone, endereco);
+                clientes.add(cli);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return clientes;
+    }
+    
+     public List<Cliente> getByFilters(String Telefone,String sobrenome){
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(getByFilter);
+            stmt.setString(1, "%"+Telefone+"%");
+            stmt.setString(2, "%"+sobrenome+"%");
             rs = stmt.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("idCliente");
