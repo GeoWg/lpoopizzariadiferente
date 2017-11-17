@@ -53,7 +53,6 @@ public class TelaPedido extends javax.swing.JFrame {
         clienteLabel.setText("Cliente");
 
         clienteProcuradoLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        clienteProcuradoLabel.setText("jLabel4");
 
         addPizzaButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         addPizzaButton.setText("Adicionar Pizza");
@@ -68,11 +67,15 @@ public class TelaPedido extends javax.swing.JFrame {
         totalLabel.setText("Total");
 
         precoLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        precoLabel.setText("jLabel6");
 
         finalizarButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         finalizarButton.setText("Finalizar");
         finalizarButton.setPreferredSize(new java.awt.Dimension(190, 40));
+        finalizarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                finalizarButtonActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -156,6 +159,12 @@ public class TelaPedido extends javax.swing.JFrame {
         dispose();
         tpi.setVisible(true);
     }//GEN-LAST:event_addPizzaButtonActionPerformed
+
+    private void finalizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarButtonActionPerformed
+        TelaInicial ti = new TelaInicial();
+        dispose();
+        ti.setVisible(true);
+    }//GEN-LAST:event_finalizarButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -63,7 +63,7 @@ public class TelaPizza extends javax.swing.JFrame {
         ladoTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
         alfaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        alfaLabel.setText("ou Alfa");
+        alfaLabel.setText("ou Area");
 
         alfaTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
@@ -111,7 +111,7 @@ public class TelaPizza extends javax.swing.JFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(alfaLabel)
                                         .addGap(18, 18, 18)
-                                        .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(pizzaLabel)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,10 +125,13 @@ public class TelaPizza extends javax.swing.JFrame {
                                         .addComponent(addButton)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
                                         .addComponent(valorLabel)
-                                        .addGap(18, 18, 18)
+                                        .addGap(154, 154, 154)
                                         .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {alfaTextField, ladoTextField});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -160,6 +163,8 @@ public class TelaPizza extends javax.swing.JFrame {
                         .addComponent(totalLabel)))
                 .addGap(0, 115, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {alfaTextField, ladoTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
