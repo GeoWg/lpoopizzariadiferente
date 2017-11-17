@@ -12,10 +12,11 @@ import java.util.List;
  * @author dell-soncini
  */
 public class Pizza {
+    
     private Forma forma;
     private List<Sabor> sabores;
     
-    public Pizza(Forma forma, List<Sabor> sabores)
+    public Pizza(int idForma, List<Sabor> sabores)
     {
         this.forma = forma;
         this.sabores = sabores;
