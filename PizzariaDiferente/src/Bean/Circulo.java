@@ -12,7 +12,7 @@ package Bean;
 public class Circulo extends Forma{
     
     public double raio;
-    
+    public double area;
     public Circulo (int raio){
         this.raio = raio;
     }
@@ -20,5 +20,10 @@ public class Circulo extends Forma{
     @Override
     public double getArea(){
         return Math.PI * (raio *raio); 
+    }
+    
+    @Override
+    public double getMedida(){
+        return   Math.sqrt(area  / Math.PI );
     }
 }

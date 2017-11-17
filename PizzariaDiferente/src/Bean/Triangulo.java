@@ -11,13 +11,21 @@ package Bean;
  */
 public class Triangulo extends Forma{
     public double lado;
+    public double area;
     
     public Triangulo (double lado){
         this.lado = lado;
     } 
-    
+    @Override
     public double getArea(){
         return ((lado * lado) / 4) * Math.sqrt(3); 
     }
+    @Override
+    public double getMedida(){
+        //return ((lado * lado)  / 4) * Math.sqrt(3); 
+        
+        return   Math.sqrt((area * 4) / Math.sqrt(3));
+    }
+    
 }
 

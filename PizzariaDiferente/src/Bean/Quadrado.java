@@ -11,6 +11,7 @@ package Bean;
  */
 public class Quadrado extends Forma{
     public double lado;
+    public double area;
     
     public Quadrado(double lado ){
         this.lado =lado;
@@ -20,4 +21,11 @@ public class Quadrado extends Forma{
     public double getArea(){
         return lado * lado;
     }
+    @Override
+    public double getMedida(){
+        //return ((lado * lado)  / 4) * Math.sqrt(3); 
+        
+        return   Math.sqrt(area);
+    }
+    
 }

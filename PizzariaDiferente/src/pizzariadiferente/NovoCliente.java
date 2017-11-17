@@ -149,33 +149,40 @@ public class NovoCliente extends javax.swing.JFrame {
         ClienteDAO cd = new ClienteDAO();
         TelaCliente tc = new TelaCliente();
         NovoCliente nc = new NovoCliente();
-        boolean valido = false;
-        while(valido){
-        if ( nomeTextField.getText().trim().length() == 0 ){
+        boolean valido = true;
+      
+        if (nomeTextField.getText().trim().length() == 0 ){
             JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo nome");
+            return;
         }else{
             c.setNome(nomeTextField.getText());
         }
-        if ( sobrenomeTextField.getText().trim().length() == 0 ){
+        
+        if (sobrenomeTextField.getText().trim().length() == 0 ){
             JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo sobrenome");
+            return;
         }else{
             c.setSobreNome(sobrenomeTextField.getText());
-        }        
-        if ( telefoneTextField.getText().trim().length() == 0 ){
+        } 
+        
+        if (telefoneTextField.getText().trim().length() == 0 ){
             JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo telefone");
+           return;
         }else{
             c.setTelefone(telefoneTextField.getText());
         }
-        if ( enderecoTextField.getText().trim().length() == 0 ){
+        
+        if (enderecoTextField.getText().trim().length() == 0){
             JOptionPane.showMessageDialog(nc, "Voce precisa preencher o campo endereco");
+            return;
         }else{
             c.setEndereco(enderecoTextField.getText());
         }
-        valido = true;
-        cd.insert(c);
+        if(valido){
+            cd.insert(c);
+            dispose();
+            tc.setVisible(true);
         }
-        dispose();
-        tc.setVisible(true);
     }//GEN-LAST:event_salvarButtonActionPerformed
 
     private void telefoneTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneTextFieldActionPerformed
