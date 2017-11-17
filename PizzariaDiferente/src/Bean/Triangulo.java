@@ -12,6 +12,9 @@ package Bean;
 public class Triangulo extends Forma{
     public double lado;
     public double area;
+
+    public Triangulo() {
+    }
     
     public Triangulo (double lado){
         this.lado = lado;

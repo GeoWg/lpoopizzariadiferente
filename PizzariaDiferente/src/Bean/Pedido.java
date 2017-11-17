@@ -15,7 +15,7 @@ public class Pedido {
     public int id;
     public Cliente cliente;
     public List<Pizza> pizzas;
-    public int valor;
+    public float valor;
     public Status status;
 
     public Pedido() {
@@ -40,6 +40,10 @@ public class Pedido {
     public Cliente getCliente() {
         return cliente;
     }
+    
+    public int getClienteId(){
+        return cliente.id;
+    }
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
@@ -53,11 +57,23 @@ public class Pedido {
         this.pizzas = pizzas;
     }
 
-    public int getValor() {
+    public float getValor() {
         return valor;
     }
 
-    public void setValor(int valor) {
+    public void setValor(float valor) {
         this.valor = valor;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    
+    public int getStatusId(){
+        return status.id;
     }
 }

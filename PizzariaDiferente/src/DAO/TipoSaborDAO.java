@@ -62,7 +62,7 @@ public class TipoSaborDAO {
                 tiposabor.setNome(rs.getString("nome"));
                 tiposabor.setPreco(rs.getInt("preco"));
             }else{
-                throw new RuntimeException("Não existe autor com este id. Id="+id);
+                throw new RuntimeException("Não existe com este id. Id="+id);
             }
        } catch (Exception ex) {
            throw new RuntimeException("Erro. Origem="+ex.getMessage());

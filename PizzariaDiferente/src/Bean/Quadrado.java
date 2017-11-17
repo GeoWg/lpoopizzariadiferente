@@ -10,8 +10,12 @@ package Bean;
  * @author dell-soncini
  */
 public class Quadrado extends Forma{
+    
     public double lado;
     public double area;
+
+    public Quadrado() {
+    }
     
     public Quadrado(double lado ){
         this.lado =lado;

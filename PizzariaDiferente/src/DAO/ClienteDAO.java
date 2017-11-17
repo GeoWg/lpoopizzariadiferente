@@ -21,7 +21,7 @@ public class ClienteDAO {
     private final String insertStm = "INSERT INTO cliente (nome,sobrenome,telefone,endereco) VALUES (?,?,?,?)";
     private final String updateStm = "UPDATE cliente SET  nome = ? ,sobrenome = ? ,telefone = ? ,endereco = ? WHERE idCliente =  ?";
     private final String deleteStm = "DELETE FROM cliente WHERE idCliente = ?";
-    private final String getAll = "SELECT * FROM cliente";
+    private final String getAll = "SELECT * FROM cliente ORDER BY idCliente DESC";
     private final String getByTelefone = "SELECT * FROM cliente WHERE telefone = ?";
     
     public Cliente insert(Cliente cliente){
