@@ -8,8 +8,11 @@ package pizzariadiferente;
 import Bean.Circulo;
 import Bean.Forma;
 import Bean.Quadrado;
+import Bean.Sabor;
 import Bean.Triangulo;
 import DAO.SaborDAO;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +28,9 @@ public class TelaPizza extends javax.swing.JFrame {
      */
     public TelaPizza() {
         initComponents();
+        SaborDAO sabordao = new SaborDAO();
+        List<Sabor> sabor1 = sabordao.getAll();
+        sabor1ComboBox.setModel(new DefaultComboBoxModel(sabor1.toArray()));
     }
 
     /**
