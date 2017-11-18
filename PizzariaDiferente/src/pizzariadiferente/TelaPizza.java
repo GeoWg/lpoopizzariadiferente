@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 public class TelaPizza extends javax.swing.JFrame {
 
     Forma forma = null;
-    
+
     /**
      * Creates new form TelaPizza
      */
@@ -211,7 +211,7 @@ public class TelaPizza extends javax.swing.JFrame {
     }//GEN-LAST:event_ladoTextFieldActionPerformed
 
     private void ladoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ladoTextFieldFocusLost
-        if (ladoTextField.getText().trim().length() > 0){
+        if (ladoTextField.getText().trim().length() > 0) {
             double lado = Double.parseDouble(ladoTextField.getText());
             forma.setMedida(lado);
             alfaTextField.setText(String.valueOf(forma.getArea()));
@@ -220,23 +220,32 @@ public class TelaPizza extends javax.swing.JFrame {
 
     private void formasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formasComboBoxActionPerformed
         // TODO add your handling code here:
-            switch(formasComboBox.getSelectedIndex()){
-                case 0:
-                    break;
-                case 1:
-                   forma = new Circulo();
-                   break;
-                case 2:
-                   forma = new Quadrado();
-                   break;
-                case 3:
-                   forma = new Triangulo();
-                   break;
-            }
+        switch (formasComboBox.getSelectedIndex()) {
+            case 0:
+                forma = null;
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                break;
+            case 1:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Circulo();
+                break;
+            case 2:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Quadrado();
+                break;
+            case 3:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Triangulo();
+                break;
+        }
     }//GEN-LAST:event_formasComboBoxActionPerformed
 
     private void alfaTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alfaTextFieldFocusLost
-        if (alfaTextField.getText().trim().length() > 0){
+        if (alfaTextField.getText().trim().length() > 0) {
             double area = Double.parseDouble(alfaTextField.getText());
             forma.setArea(area);
             ladoTextField.setText(String.valueOf(forma.getMedida()));
