@@ -20,6 +20,7 @@ public class TipoSaborDAO {
     
     private final String getById = "SELECT * FROM tiposabor WHERE idTipoSabor = ?";
     private final String getAll = "SELECT * FROM tiposabor";
+     private final String updateStm = "UPDATE tiposabor SET  preco = ? WHERE idTipoSabor =  ?";
     
     public List<TipoSabor> getAll(){
        List<TipoSabor> tipos = new ArrayList<TipoSabor>();
@@ -71,6 +72,23 @@ public class TipoSaborDAO {
            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
        }
        return tiposabor;
-   }    
+   }
+    public void update(TipoSabor tiposabor){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(updateStm);
+            
+            stmt.setDouble(1, tiposabor.getPreco());
+            stmt.setInt(2, tiposabor.getId());
+            stmt.executeUpdate();
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+    }    
     
 }
