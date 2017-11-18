@@ -28,7 +28,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="214" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="pizzariaLabel" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -38,7 +38,7 @@
                   <Component id="clienteButton" linkSize="8" alignment="1" min="-2" pref="370" max="-2" attributes="0"/>
                   <Component id="pedidoButton" linkSize="8" alignment="1" min="-2" pref="780" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -51,7 +51,7 @@
               <Component id="clienteButton" linkSize="9" min="-2" pref="158" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="pedidoButton" linkSize="9" min="-2" pref="80" max="-2" attributes="0"/>
-              <EmptySpace pref="95" max="32767" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

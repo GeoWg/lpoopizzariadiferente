@@ -17,31 +17,34 @@ import javax.swing.JOptionPane;
  */
 public class TelaListaPedidos extends javax.swing.JFrame {
 
-     private ModeloTabelaPedido modeloTabela;
+    private ModeloTabelaPedido modeloTabela;
+
     /**
      * Creates new form TelaListaPedidos
      */
     public TelaListaPedidos() {
         modeloTabela = new ModeloTabelaPedido();
         initComponents();
-        atualizaTabela(); 
-       
+        atualizaTabela();
+
     }
+
     public void atualizaTabela() {
-        
-         try {
+
+        try {
             PedidoDAO dao = new PedidoDAO();
             List<Pedido> lista;
-            if(StatusId.getSelectedIndex() == 0 ){
+            if (StatusId.getSelectedIndex() == 0) {
                 lista = dao.getAll();
-            }else{
+            } else {
                 lista = dao.getByIdStatus(StatusId.getSelectedIndex());
             }
             modeloTabela.setListaPedido(lista);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    } 
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,6 +66,11 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Pedidos");
@@ -151,34 +159,34 @@ public class TelaListaPedidos extends javax.swing.JFrame {
 
     private void CaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaminhoActionPerformed
         // TODO add your handling code here:
-              try {
+        try {
             PedidoDAO dao = new PedidoDAO();
             int[] linhasSelecionadas = pedidoTable.getSelectedRows();
             List<Pedido> listaExcluir = new ArrayList<Pedido>();
             for (int i = 0; i < linhasSelecionadas.length; i++) {
                 Pedido pedido = modeloTabela.getPedido(linhasSelecionadas[i]);
-                dao.updateStatus(pedido,2);
+                dao.updateStatus(pedido, 2);
                 atualizaTabela();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_CaminhoActionPerformed
 
     private void EntregueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntregueActionPerformed
         // TODO add your handling code here:
-         // TODO add your handling code here:
-         try {
+        // TODO add your handling code here:
+        try {
             PedidoDAO dao = new PedidoDAO();
             int[] linhasSelecionadas = pedidoTable.getSelectedRows();
             List<Pedido> listaExcluir = new ArrayList<Pedido>();
             for (int i = 0; i < linhasSelecionadas.length; i++) {
                 Pedido pedido = modeloTabela.getPedido(linhasSelecionadas[i]);
-                dao.updateStatus(pedido,3);
+                dao.updateStatus(pedido, 3);
                 atualizaTabela();
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null,"Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_EntregueActionPerformed
 
@@ -193,6 +201,13 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
         atualizaTabela();
     }//GEN-LAST:event_StatusIdActionPerformed
+
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        // TODO add your handling code here:
+        TelaInicial TI = new TelaInicial();
+        dispose();
+        TI.setVisible(true);
+    }//GEN-LAST:event_voltarActionPerformed
 
     /**
      * @param args the command line arguments

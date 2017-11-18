@@ -9,6 +9,7 @@ import Bean.Circulo;
 import Bean.Forma;
 import Bean.Quadrado;
 import Bean.Triangulo;
+import DAO.SaborDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -56,10 +57,8 @@ public class TelaPizza extends javax.swing.JFrame {
         pizzaLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         pizzaLabel.setText("Pizza");
 
-        formaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         formaLabel.setText("Forma");
 
-        formasComboBox.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         formasComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Circulo", "Quadrado", "Triangulo" }));
         formasComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -67,13 +66,10 @@ public class TelaPizza extends javax.swing.JFrame {
             }
         });
 
-        tamanhoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tamanhoLabel.setText("Tamanho");
 
-        ladoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         ladoLabel.setText("Lado/Raio");
 
-        ladoTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         ladoTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 ladoTextFieldFocusLost(evt);
@@ -85,29 +81,22 @@ public class TelaPizza extends javax.swing.JFrame {
             }
         });
 
-        alfaLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         alfaLabel.setText("ou Area");
 
-        alfaTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         alfaTextField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 alfaTextFieldFocusLost(evt);
             }
         });
 
-        sabor1Label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sabor1Label.setText("Sabor 1");
 
-        sabor1ComboBox.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sabor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        sabor2Label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sabor2Label.setText("Sabor 2");
 
-        sabor2ComboBox.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sabor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        addButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         addButton.setText("Adicionar");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,42 +114,35 @@ public class TelaPizza extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(formaLabel)
-                        .addGap(18, 18, 18)
-                        .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tamanhoLabel)
-                        .addGap(18, 18, 18)
+                        .addContainerGap(24, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ladoLabel)
+                            .addComponent(formaLabel)
+                            .addComponent(sabor1Label)
+                            .addComponent(sabor2Label)
+                            .addComponent(valorLabel)
+                            .addComponent(tamanhoLabel))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(addButton))
+                            .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ladoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ladoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(alfaLabel)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(pizzaLabel)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sabor1Label)
-                                    .addComponent(sabor2Label))
-                                .addGap(36, 36, 36)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(sabor1ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(sabor2ComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(addButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
-                                        .addComponent(valorLabel)
-                                        .addGap(154, 154, 154)
-                                        .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(alfaLabel)
+                                .addGap(18, 18, 18)
+                                .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(237, 237, 237)
+                        .addComponent(pizzaLabel)))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {alfaTextField, ladoTextField});
@@ -170,34 +152,36 @@ public class TelaPizza extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pizzaLabel)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaLabel)
-                    .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tamanhoLabel)
-                    .addComponent(ladoLabel)
-                    .addComponent(ladoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(alfaLabel)
-                    .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sabor1Label)
-                    .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sabor2Label)
-                    .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addButton)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(valorLabel)
-                        .addComponent(totalLabel)))
-                .addGap(0, 115, Short.MAX_VALUE))
+                    .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(tamanhoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ladoLabel)
+                            .addComponent(ladoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(alfaLabel)
+                            .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sabor1Label)
+                            .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sabor2Label)
+                            .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addButton)
+                            .addComponent(valorLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {alfaTextField, ladoTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

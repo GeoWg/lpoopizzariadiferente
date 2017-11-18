@@ -28,7 +28,7 @@ public class PizzaDAO {
     
       public List<Pizza> getByIdPedido(int idPedido){
         List<Pizza> pizzas = new ArrayList<Pizza>();
-        Connection con = null;
+        Connection con = null;  
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
