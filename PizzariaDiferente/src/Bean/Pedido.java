@@ -15,17 +15,15 @@ public class Pedido {
     public int id;
     public Cliente cliente;
     public List<Pizza> pizzas;
-    public float valor;
     public Status status;
 
     public Pedido() {
     }
 
-    public Pedido(int id, Cliente cliente, List<Pizza> pizzas, int valor, Status status) {
+    public Pedido(int id, Cliente cliente, List<Pizza> pizzas, Status status) {
         this.id = id;
         this.cliente = cliente;
         this.pizzas = pizzas;
-        this.valor = valor;
         this.status = status;
     }
     
@@ -57,12 +55,12 @@ public class Pedido {
         this.pizzas = pizzas;
     }
 
-    public float getValor() {
+    public double getValor() {
+        double valor = 0;
+        for(Pizza p : pizzas){
+            valor += p.getPreco();
+        }
         return valor;
-    }
-
-    public void setValor(float valor) {
-        this.valor = valor;
     }
 
     public Status getStatus() {

@@ -5,9 +5,13 @@
  */
 package DAO;
 
+import Bean.Circulo;
 import Bean.Forma;
 import Bean.FormaEnum;
 import Bean.Pizza;
+import Bean.Quadrado;
+import Bean.Sabor;
+import Bean.Triangulo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,10 +24,10 @@ import java.util.List;
  */
 public class PizzaDAO {
     
-    private final String getByIdPedido = "SELECT * FROM pedido WHERE idPedido = ?";
+    private final String getByIdPedido = "SELECT * FROM pedidopizza WHERE idPedido = ?";
     
       public List<Pizza> getByIdPedido(int idPedido){
-        List<Pizza> pedidos = new ArrayList<Pizza>();
+        List<Pizza> pizzas = new ArrayList<Pizza>();
         Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -32,18 +36,25 @@ public class PizzaDAO {
             stmt = con.prepareStatement(getByIdPedido);
             stmt.setInt(1, idPedido);
             rs = stmt.executeQuery();
+            SaborDAO sd = new SaborDAO();
             while(rs.next()){
                 int id = rs.getInt("idPedidoPizza");
                 int idForma = rs.getInt("idForma");
                 Forma forma = null;
-                if(idForma == FormaEnum.Circulo.getValue()){
+                if(idForma == FormaEnum.Quadrado.getValue()){
+                    forma = new Quadrado();
                     
                 }
-                
-                int idStatus = rs.getInt("idStatus");    
-                Cliente cli = cd.getById(idCliente);
-                Status s = sd.getById(idStatus);
-                
+                else if (idForma == FormaEnum.Circulo.getValue()){
+                    forma = new Triangulo();
+                }
+                else{
+                    forma = new Circulo();
+                }
+                forma.setMedida( rs.getDouble("medida"));
+                List<Sabor> sabores = sd.getByIdPizza(id);
+                Pizza p = new Pizza(forma, sabores);
+                pizzas.add(p);              
             }
         } catch (Exception ex) {
             throw new RuntimeException("Erro. Origem="+ex.getMessage());
@@ -51,7 +62,7 @@ public class PizzaDAO {
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
         }
-        return pedidos;
+        return pizzas;
     }
     
 }

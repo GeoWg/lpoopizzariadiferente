@@ -15,7 +15,7 @@ import java.sql.ResultSet;
  * @author dell-soncini
  */
 public class StatusDAO {
-      private final String getById = "SELECT * FROM pedido WHERE idPedido = ?";
+      private final String getStatusById = "SELECT * FROM status WHERE idStatus = ?";
       
       public Status getById(int id){
         Status s = null;
@@ -24,7 +24,7 @@ public class StatusDAO {
         ResultSet rs = null;
         try {
             con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(getById);
+            stmt = con.prepareStatement(getStatusById);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(rs.next()){

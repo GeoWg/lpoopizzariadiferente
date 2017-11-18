@@ -16,7 +16,7 @@ public class Pizza {
     private Forma forma;
     private List<Sabor> sabores;
     
-    public Pizza(int idForma, List<Sabor> sabores)
+    public Pizza(Forma forma, List<Sabor> sabores)
     {
         this.forma = forma;
         this.sabores = sabores;

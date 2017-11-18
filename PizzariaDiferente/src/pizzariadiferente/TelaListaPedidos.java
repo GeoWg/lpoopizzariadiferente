@@ -7,6 +7,7 @@ package pizzariadiferente;
 
 import Bean.Pedido;
 import DAO.PedidoDAO;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -23,15 +24,24 @@ public class TelaListaPedidos extends javax.swing.JFrame {
     public TelaListaPedidos() {
         modeloTabela = new ModeloTabelaPedido();
         initComponents();
-        try {
+        atualizaTabela(); 
+       
+    }
+    public void atualizaTabela() {
+        
+         try {
             PedidoDAO dao = new PedidoDAO();
-            List<Pedido> lista = dao.getAll();
+            List<Pedido> lista;
+            if(StatusId.getSelectedIndex() == 0 ){
+                lista = dao.getAll();
+            }else{
+                lista = dao.getByIdStatus(StatusId.getSelectedIndex());
+            }
             modeloTabela.setListaPedido(lista);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null,"Erro ao conectar com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -44,11 +54,11 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         voltar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        pedidoTable = new javax.swing.JTable();
         Novo = new javax.swing.JButton();
         Caminho = new javax.swing.JButton();
-        Caminho1 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        Entregue = new javax.swing.JButton();
+        StatusId = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,10 +67,15 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         jLabel1.setText("Pedidos");
 
-        jTable1.setModel(modeloTabela);
-        jScrollPane2.setViewportView(jTable1);
+        pedidoTable.setModel(modeloTabela);
+        jScrollPane2.setViewportView(pedidoTable);
 
         Novo.setText("Novo");
+        Novo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NovoActionPerformed(evt);
+            }
+        });
 
         Caminho.setText("A Caminho");
         Caminho.addActionListener(new java.awt.event.ActionListener() {
@@ -69,15 +84,20 @@ public class TelaListaPedidos extends javax.swing.JFrame {
             }
         });
 
-        Caminho1.setText("Entregue");
-        Caminho1.setToolTipText("");
-        Caminho1.addActionListener(new java.awt.event.ActionListener() {
+        Entregue.setText("Entregue");
+        Entregue.setToolTipText("");
+        Entregue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Caminho1ActionPerformed(evt);
+                EntregueActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos Status", "Abertos", "A Caminho", "Entregue" }));
+        StatusId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos Status", "Abertos", "A Caminho", "Entregue" }));
+        StatusId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusIdActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +106,7 @@ public class TelaListaPedidos extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(StatusId, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jLabel1)
@@ -101,7 +121,7 @@ public class TelaListaPedidos extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(Caminho)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Caminho1)
+                            .addComponent(Entregue)
                             .addGap(23, 23, 23)))))
         );
         layout.setVerticalGroup(
@@ -115,14 +135,14 @@ public class TelaListaPedidos extends javax.swing.JFrame {
                         .addGap(28, 28, 28)
                         .addComponent(jLabel1)))
                 .addGap(15, 15, 15)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(StatusId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Novo)
                     .addComponent(Caminho)
-                    .addComponent(Caminho1))
+                    .addComponent(Entregue))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -131,11 +151,48 @@ public class TelaListaPedidos extends javax.swing.JFrame {
 
     private void CaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CaminhoActionPerformed
         // TODO add your handling code here:
+              try {
+            PedidoDAO dao = new PedidoDAO();
+            int[] linhasSelecionadas = pedidoTable.getSelectedRows();
+            List<Pedido> listaExcluir = new ArrayList<Pedido>();
+            for (int i = 0; i < linhasSelecionadas.length; i++) {
+                Pedido pedido = modeloTabela.getPedido(linhasSelecionadas[i]);
+                dao.updateStatus(pedido,2);
+                atualizaTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_CaminhoActionPerformed
 
-    private void Caminho1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Caminho1ActionPerformed
+    private void EntregueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntregueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_Caminho1ActionPerformed
+         // TODO add your handling code here:
+         try {
+            PedidoDAO dao = new PedidoDAO();
+            int[] linhasSelecionadas = pedidoTable.getSelectedRows();
+            List<Pedido> listaExcluir = new ArrayList<Pedido>();
+            for (int i = 0; i < linhasSelecionadas.length; i++) {
+                Pedido pedido = modeloTabela.getPedido(linhasSelecionadas[i]);
+                dao.updateStatus(pedido,3);
+                atualizaTabela();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null,"Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_EntregueActionPerformed
+
+    private void NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoActionPerformed
+        // TODO add your handling code here:
+        TelaPedido tp = new TelaPedido();
+        dispose();
+        tp.setVisible(true);
+    }//GEN-LAST:event_NovoActionPerformed
+
+    private void StatusIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusIdActionPerformed
+        // TODO add your handling code here:
+        atualizaTabela();
+    }//GEN-LAST:event_StatusIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -174,13 +231,12 @@ public class TelaListaPedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Caminho;
-    private javax.swing.JButton Caminho1;
+    private javax.swing.JButton Entregue;
     private javax.swing.JButton Novo;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> StatusId;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable pedidoTable;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class SaborDAO {
     private String selectAll = "SELECT s.idSabor as id, s.nome as nome, s.descricao as descricao, st.idTipoSabor as idTipo, st.nome as tipoNome, st.preco as preco FROM sabor s INNER JOIN tiposabor st ON s.idtiposabor = st.idtiposabor";
+    private String selectByIdPizza = "SELECT s.idSabor as id, s.nome as nome, s.descricao as descricao, st.idTipoSabor as idTipo, st.nome as tipoNome, st.preco as preco FROM sabor s INNER JOIN tiposabor st ON s.idtiposabor = st.idtiposabor WHERE idsabor IN(Select idSabor FROM pizzasabor WHERE idPedidoPizza = ?)";
     private String insertStm = "INSERT INTO sabor (nome, descricao, idTipoSabor) VALUES (?,?,?)";
     
     public List<Sabor> getAll(){
@@ -50,6 +51,38 @@ public class SaborDAO {
         }
         return sabores;
     }
+    
+    public List<Sabor> getByIdPizza(int IdPizza){
+        List<Sabor> sabores = new ArrayList<Sabor>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(selectByIdPizza);
+            stmt.setInt(1, IdPizza);
+            rs = stmt.executeQuery();
+            while(rs.next()){
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String descricao = rs.getString("descricao");
+                int idtipo = rs.getInt("idTipo");
+                double preco = rs.getDouble("preco");
+                String tipoNome = rs.getString("tipoNome");
+                Sabor sabor = new Sabor(id, nome, descricao, new TipoSabor(idtipo,tipoNome,preco));
+                sabores.add(sabor);
+            }
+        } catch (SQLException ex) {
+           
+            throw new RuntimeException("Erro ao inserir um livro no banco de dados. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return sabores;
+    }
+    
+    
     
     public Sabor insert(Sabor sabor){
         Connection con = null;

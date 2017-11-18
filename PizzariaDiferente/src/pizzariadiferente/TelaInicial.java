@@ -107,9 +107,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_clienteButtonMouseClicked
 
     private void pedidoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pedidoButtonActionPerformed
-        TelaPedido tp = new TelaPedido();
+        TelaListaPedidos tlp = new TelaListaPedidos();
         dispose();
-        tp.setVisible(true);
+        tlp.setVisible(true);
     }//GEN-LAST:event_pedidoButtonActionPerformed
 
     /**

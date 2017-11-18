@@ -21,11 +21,12 @@ import java.util.List;
  */
 public class PedidoDAO {
     
-    private final String insertPedido = "INSERT INTO pedido (valor,idCliente,idStatus) VALUES (?,?,?)";
+    private final String insertPedido = "INSERT INTO pedido (idCliente,idStatus) VALUES (?,?)";
     private final String insertPizza = "INSERT INTO pedidoPizza (idPedido, idForma, tamanho, idSabor1, idSabor2, valor) VALUES (?,?,?,?,?,?)";
-    private final String updateStm = "UPDATE pedido SET  valor = ?, idStatus = ?, pizza = ? WHERE idPedido =  ?";
+    private final String update = "UPDATE pedido SET idStatus = ? WHERE idPedido =  ?";
     private final String byId = "SELECT * FROM pedido WHERE idPedido = ?";
-    private final String getAll = "SELECT * FROM pedido WHERE idPedido = ?";
+    private final String getAll = "SELECT * FROM pedido ORDER BY idPedido DESC";
+    private final String getByIdStatus = "SELECT * FROM pedido  WHERE idStatus = ? ORDER BY idPedido DESC";
  
     public Pedido insertPedido(Pedido pedido){
         Connection con = null;
@@ -33,9 +34,8 @@ public class PedidoDAO {
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(insertPedido, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setFloat(1, pedido.getValor());
-            stmt.setInt(2, pedido.getClienteId());
-            stmt.setInt(3, pedido.getStatusId());
+            stmt.setInt(1, pedido.getClienteId());
+            stmt.setInt(2, pedido.getStatusId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
@@ -48,35 +48,24 @@ public class PedidoDAO {
         }
         return pedido;
     }
-    /*
-    public List<Pizza> insertPizza(Pizza pizza){
-        List<Pizza> pizzas = new ArrayList<Pizza>();
+    
+    public Pedido updateStatus(Pedido pedido, int idStatus){
         Connection con = null;
-        PreparedStatement stmt = null, stmt2 = null;
-        ResultSet rs = null, rs2 = null;
+        PreparedStatement stmt = null;
         try {
             con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(insertPizza);
-            stmt = con.prepareStatement(insertPedido, PreparedStatement.RETURN_GENERATED_KEYS);
-            rs2 = stmt2.getGeneratedKeys();
-            for(int i = 0; i<pizza.size; i++){
-                stmt.setInt(1,rs2.getInt(1));
-                stmt.setInt(2, pizza);
-                stmt.setInt(2, pedido.getClienteId());
-                stmt.setInt(3, pedido.getStatusId());
-                stmt.executeUpdate();
-                ResultSet rs = stmt.getGeneratedKeys();
-                rs.next();
-                pedido.setId(rs.getInt(1));
-            }
+            stmt = con.prepareStatement(update);
+            stmt.setInt(1, idStatus);
+            stmt.setInt(2, pedido.getId());
+            stmt.executeUpdate();
         } catch (Exception ex) {
-            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+            throw new RuntimeException("Erro ao inserir no banco de dados. Origem="+ex.getMessage());
         } finally{
             try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
             try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
         }
-        return clientes;
-    }*/
+        return pedido;
+    }
     
     public List<Pedido> getAll(){
         List<Pedido> pedidos = new ArrayList<Pedido>();
@@ -89,15 +78,59 @@ public class PedidoDAO {
             rs = stmt.executeQuery();
             ClienteDAO cd = new ClienteDAO();
             StatusDAO sd = new StatusDAO();
+            PizzaDAO pd = new PizzaDAO();
             while(rs.next()){
-                int id = rs.getInt("idCliente");
-                String idPedido = rs.getString("idPedido");
+                int idPedido = rs.getInt("idPedido");
                 double valor = rs.getDouble("valor");
                 int idCliente = rs.getInt("idCliente");
                 int idStatus = rs.getInt("idStatus");    
                 Cliente cli = cd.getById(idCliente);
-                Status s = sd.getById(idStatus);
-                
+                Status st = sd.getById(idStatus);
+                List<Pizza> pizzas = pd.getByIdPedido(idPedido);
+                Pedido p = new Pedido();
+                p.setCliente(cli);
+                p.setPizzas(pizzas);
+                p.setStatus(st);
+                p.setId(idPedido);
+                pedidos.add(p);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return pedidos;
+    }
+    
+     public List<Pedido> getByIdStatus(int statusId){
+         
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(getByIdStatus);
+            stmt.setInt(1,statusId);
+            rs = stmt.executeQuery();
+            ClienteDAO cd = new ClienteDAO();
+            StatusDAO sd = new StatusDAO();
+            PizzaDAO pd = new PizzaDAO();
+            while(rs.next()){
+                int idPedido = rs.getInt("idPedido");
+                double valor = rs.getDouble("valor");
+                int idCliente = rs.getInt("idCliente");
+                int idStatus = rs.getInt("idStatus");    
+                Cliente cli = cd.getById(idCliente);
+                Status st = sd.getById(idStatus);
+                List<Pizza> pizzas = pd.getByIdPedido(idPedido);
+                Pedido p = new Pedido();
+                p.setCliente(cli);
+                p.setPizzas(pizzas);
+                p.setStatus(st);
+                p.setId(idPedido);
+                pedidos.add(p);
             }
         } catch (Exception ex) {
             throw new RuntimeException("Erro. Origem="+ex.getMessage());
