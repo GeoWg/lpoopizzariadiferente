@@ -11,6 +11,8 @@ import Bean.Quadrado;
 import Bean.Sabor;
 import Bean.Triangulo;
 import DAO.SaborDAO;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -22,15 +24,22 @@ import javax.swing.JOptionPane;
 public class TelaPizza extends javax.swing.JFrame {
 
     Forma forma = null;
+    NumberFormat formatter = new DecimalFormat("#0.00");  
 
     /**
      * Creates new form TelaPizza
      */
     public TelaPizza() {
         initComponents();
+        preencheCombo();
+    }
+    
+    public void preencheCombo(){
         SaborDAO sabordao = new SaborDAO();
         List<Sabor> sabor1 = sabordao.getAll();
+        List<Sabor> sabor2 = sabordao.getAll();
         sabor1ComboBox.setModel(new DefaultComboBoxModel(sabor1.toArray()));
+        sabor2ComboBox.setModel(new DefaultComboBoxModel(sabor2.toArray()));
     }
 
     /**
@@ -102,6 +111,11 @@ public class TelaPizza extends javax.swing.JFrame {
         sabor2Label.setText("Sabor 2");
 
         sabor2ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sabor2ComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                sabor2ComboBoxFocusLost(evt);
+            }
+        });
 
         addButton.setText("Adicionar");
         addButton.addActionListener(new java.awt.event.ActionListener() {
@@ -204,7 +218,7 @@ public class TelaPizza extends javax.swing.JFrame {
         if (ladoTextField.getText().trim().length() > 0) {
             double lado = Double.parseDouble(ladoTextField.getText());
             forma.setMedida(lado);
-            alfaTextField.setText(String.valueOf(forma.getArea()));
+            alfaTextField.setText(String.valueOf(formatter.format(forma.getArea())));
         }
     }//GEN-LAST:event_ladoTextFieldFocusLost
 
@@ -238,9 +252,15 @@ public class TelaPizza extends javax.swing.JFrame {
         if (alfaTextField.getText().trim().length() > 0) {
             double area = Double.parseDouble(alfaTextField.getText());
             forma.setArea(area);
-            ladoTextField.setText(String.valueOf(forma.getMedida()));
+            ladoTextField.setText(String.valueOf(formatter.format(forma.getMedida())));
         }
     }//GEN-LAST:event_alfaTextFieldFocusLost
+
+    private void sabor2ComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sabor2ComboBoxFocusLost
+        // TODO add your handling code here:
+        
+        totalLabel.setText("Teste");
+    }//GEN-LAST:event_sabor2ComboBoxFocusLost
 
     /**
      * @param args the command line arguments
