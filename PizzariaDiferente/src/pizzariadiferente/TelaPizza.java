@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class TelaPizza extends javax.swing.JFrame {
 
+    Forma forma = null;
+
     /**
      * Creates new form TelaPizza
      */
@@ -58,7 +60,12 @@ public class TelaPizza extends javax.swing.JFrame {
         formaLabel.setText("Forma");
 
         formasComboBox.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        formasComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circulo", "Quadrado", "Triangulo" }));
+        formasComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Circulo", "Quadrado", "Triangulo" }));
+        formasComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                formasComboBoxActionPerformed(evt);
+            }
+        });
 
         tamanhoLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         tamanhoLabel.setText("Tamanho");
@@ -67,6 +74,11 @@ public class TelaPizza extends javax.swing.JFrame {
         ladoLabel.setText("Lado/Raio");
 
         ladoTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        ladoTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                ladoTextFieldFocusLost(evt);
+            }
+        });
         ladoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ladoTextFieldActionPerformed(evt);
@@ -77,6 +89,11 @@ public class TelaPizza extends javax.swing.JFrame {
         alfaLabel.setText("ou Area");
 
         alfaTextField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        alfaTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                alfaTextFieldFocusLost(evt);
+            }
+        });
 
         sabor1Label.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         sabor1Label.setText("Sabor 1");
@@ -186,43 +203,54 @@ public class TelaPizza extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
-        Forma forma = null;
-        int idForma = formasComboBox.getSelectedIndex();
-        if (idForma == 0) {
-            forma = new Circulo();
-        } else if (idForma == 1) {
-            forma = new Quadrado();
-        } else if (idForma == 2) {
-            forma = new Triangulo();
-        }
-        if (forma != null) {
-            try {
-                if (alfaTextField.getText().trim().length() > 0 && ladoTextField.getText().trim().length() == 0) {
-                    try {
-                        double area = Double.parseDouble(alfaTextField.getText().trim());
-                        forma.setArea(area);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Área inválido", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else if (ladoTextField.getText().trim().length() > 0 && alfaTextField.getText().trim().length() == 0) {
-                    try {
-                        double medida = Double.parseDouble(ladoTextField.getText().trim());
-                        forma.setMedida(medida);
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(null, "Medida inválida", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Selecione apenas uma das medidas", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-
+        // TODO add your handling code he
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void ladoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ladoTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ladoTextFieldActionPerformed
+
+    private void ladoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ladoTextFieldFocusLost
+        if (ladoTextField.getText().trim().length() > 0) {
+            double lado = Double.parseDouble(ladoTextField.getText());
+            forma.setMedida(lado);
+            alfaTextField.setText(String.valueOf(forma.getArea()));
+        }
+    }//GEN-LAST:event_ladoTextFieldFocusLost
+
+    private void formasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formasComboBoxActionPerformed
+        // TODO add your handling code here:
+        switch (formasComboBox.getSelectedIndex()) {
+            case 0:
+                forma = null;
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                break;
+            case 1:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Circulo();
+                break;
+            case 2:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Quadrado();
+                break;
+            case 3:
+                ladoTextField.setText("");
+                alfaTextField.setText("");
+                forma = new Triangulo();
+                break;
+        }
+    }//GEN-LAST:event_formasComboBoxActionPerformed
+
+    private void alfaTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alfaTextFieldFocusLost
+        if (alfaTextField.getText().trim().length() > 0) {
+            double area = Double.parseDouble(alfaTextField.getText());
+            forma.setArea(area);
+            ladoTextField.setText(String.valueOf(forma.getMedida()));
+        }
+    }//GEN-LAST:event_alfaTextFieldFocusLost
 
     /**
      * @param args the command line arguments
