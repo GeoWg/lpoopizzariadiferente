@@ -34,7 +34,7 @@ public class TipoSaborDAO {
            while(rs.next()){
                int id = rs.getInt("idTipoSabor");
                String nome = rs.getString("nome");
-               int preco = rs.getInt("preco");
+               double preco = rs.getDouble("preco");
                TipoSabor ts = new TipoSabor(id, nome, preco);
                tipos.add(ts);
            }
@@ -61,7 +61,7 @@ public class TipoSaborDAO {
                 tiposabor = new TipoSabor();
                 tiposabor.setId(rs.getInt("idTipoSabor"));
                 tiposabor.setNome(rs.getString("nome"));
-                tiposabor.setPreco(rs.getInt("preco"));
+                tiposabor.setPreco(rs.getDouble("preco"));
             }else{
                 throw new RuntimeException("Não existe com este id. Id="+id);
             }

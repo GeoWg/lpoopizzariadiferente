@@ -168,18 +168,34 @@ public class TelaAtualizarPreco extends javax.swing.JFrame {
         TipoSabor t1 = new TipoSabor();
         TipoSabor t2 = new TipoSabor();
         TipoSabor t3 = new TipoSabor();
-        TipoSaborDAO t1d = new TipoSaborDAO();
+        TipoSaborDAO dao = new TipoSaborDAO();
         TelaAtualizarPreco ta = new TelaAtualizarPreco();
-        boolean valido = false;
+        boolean valido = true;
         if (preco1TextField.getText().trim().length() == 0){
             JOptionPane.showMessageDialog(ta, "Voce precisa preencher o campo Preço 1","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
             t1.setId(1);
-            t1.setPreco(Integer.parseInt(preco1TextField.getText()));
+            t1.setPreco(Double.parseDouble(preco1TextField.getText()));
         }
+        if (preco2TextField.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(ta, "Voce precisa preencher o campo Preço 2","ERRO", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else{
+            t2.setId(2);
+            t2.setPreco(Double.parseDouble(preco2TextField.getText()));
+        }
+        if (preco3TextField.getText().trim().length() == 0){
+            JOptionPane.showMessageDialog(ta, "Voce precisa preencher o campo Preço 3","ERRO", JOptionPane.ERROR_MESSAGE);
+            return;
+        }else{
+            t3.setId(3);
+            t3.setPreco(Double.valueOf(preco3TextField.getText()));
+        }        
         if(valido){
-            t1d.update(t1);
+            dao.update(t1);
+            dao.update(t2);
+            dao.update(t3);
             dispose();
         }        
     }//GEN-LAST:event_atualizarButtonActionPerformed
