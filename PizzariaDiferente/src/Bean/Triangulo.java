@@ -30,5 +30,14 @@ public class Triangulo extends Forma{
         return   Math.sqrt((area * 4) / Math.sqrt(3));
     }
     
+    @Override
+    public void setMedida(double lado){
+        this.lado = lado;
+    }
+    
+    @Override
+    public void setArea(double area){
+        this.area = area;
+    }
 }
 

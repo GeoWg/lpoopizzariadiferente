@@ -13,5 +13,7 @@ public abstract class Forma {
     
     public abstract double getArea();
     public abstract double getMedida();
+    public abstract void setMedida(double medida);
+    public abstract void setArea(double area);
 
 }

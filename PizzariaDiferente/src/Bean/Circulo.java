@@ -30,4 +30,14 @@ public class Circulo extends Forma{
     public double getMedida(){
         return   Math.sqrt(area  / Math.PI );
     }
+    
+    @Override
+    public void setMedida(double raio){
+        this.raio = raio;
+    }
+    
+    @Override
+    public void setArea(double area){
+        this.area = area;
+    }
 }

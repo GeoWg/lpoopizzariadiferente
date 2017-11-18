@@ -32,4 +32,14 @@ public class Quadrado extends Forma{
         return   Math.sqrt(area);
     }
     
+    @Override
+    public void setMedida(double lado){
+        this.lado = lado;
+    }
+    
+    @Override
+    public void setArea(double area){
+        this.area = area;
+    }
+    
 }
