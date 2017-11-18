@@ -137,13 +137,17 @@
           <Font name="Tahoma" size="24" style="0"/>
         </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Circulo"/>
-            <StringItem index="1" value="Quadrado"/>
-            <StringItem index="2" value="Triangulo"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Selecione"/>
+            <StringItem index="1" value="Circulo"/>
+            <StringItem index="2" value="Quadrado"/>
+            <StringItem index="3" value="Triangulo"/>
           </StringArray>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="formasComboBoxActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -171,6 +175,7 @@
         </Property>
       </Properties>
       <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="ladoTextFieldFocusLost"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ladoTextFieldActionPerformed"/>
       </Events>
     </Component>
@@ -188,6 +193,9 @@
           <Font name="Tahoma" size="24" style="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="alfaTextFieldFocusLost"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="sabor1Label">
       <Properties>
