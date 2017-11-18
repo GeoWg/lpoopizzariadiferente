@@ -8,6 +8,7 @@ package DAO;
 import Bean.Cliente;
 import Bean.Pedido;
 import Bean.Pizza;
+import Bean.Status;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,6 +25,7 @@ public class PedidoDAO {
     private final String insertPizza = "INSERT INTO pedidoPizza (idPedido, idForma, tamanho, idSabor1, idSabor2, valor) VALUES (?,?,?,?,?,?)";
     private final String updateStm = "UPDATE pedido SET  valor = ?, idStatus = ?, pizza = ? WHERE idPedido =  ?";
     private final String byId = "SELECT * FROM pedido WHERE idPedido = ?";
+    private final String getAll = "SELECT * FROM pedido WHERE idPedido = ?";
  
     public Pedido insertPedido(Pedido pedido){
         Connection con = null;
@@ -75,4 +77,34 @@ public class PedidoDAO {
         }
         return clientes;
     }*/
+    
+    public List<Pedido> getAll(){
+        List<Pedido> pedidos = new ArrayList<Pedido>();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(getAll);
+            rs = stmt.executeQuery();
+            ClienteDAO cd = new ClienteDAO();
+            StatusDAO sd = new StatusDAO();
+            while(rs.next()){
+                int id = rs.getInt("idCliente");
+                String idPedido = rs.getString("idPedido");
+                double valor = rs.getDouble("valor");
+                int idCliente = rs.getInt("idCliente");
+                int idStatus = rs.getInt("idStatus");    
+                Cliente cli = cd.getById(idCliente);
+                Status s = sd.getById(idStatus);
+                
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return pedidos;
+    }
 }

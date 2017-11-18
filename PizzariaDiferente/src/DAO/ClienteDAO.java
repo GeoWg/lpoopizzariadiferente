@@ -24,6 +24,7 @@ public class ClienteDAO {
     private final String getAll = "SELECT * FROM cliente ORDER BY idCliente DESC";
     private final String getByFilter = "SELECT * FROM cliente WHERE telefone like ? AND sobrenome like ? ORDER BY idCliente DESC";
     private final String getByTelefone = "SELECT * FROM cliente WHERE telefone = ?";
+    private final String getById = "SELECT * FROM cliente WHERE idCliente = ?";
     
     public Cliente insert(Cliente cliente){
         Connection con = null;
@@ -152,6 +153,32 @@ public class ClienteDAO {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(getByTelefone);
             stmt.setString(1, fone);
+            rs = stmt.executeQuery();
+            if(rs.next()){
+                c.setId(rs.getInt("idCliente"));
+                c.setNome(rs.getString("nome"));
+                c.setSobreNome(rs.getString("sobrenome"));
+                c.setEndereco(rs.getString("endereco"));
+                c.setTelefone(rs.getString("telefone"));
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem="+ex.getMessage());
+        } finally{
+            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
+            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+        }
+        return c;
+    }
+    
+    public Cliente getById(int id){
+        Cliente c = new Cliente();
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(getById);
+            stmt.setInt(1, id);
             rs = stmt.executeQuery();
             if(rs.next()){
                 c.setId(rs.getInt("idCliente"));
