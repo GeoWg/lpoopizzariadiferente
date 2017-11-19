@@ -14,6 +14,7 @@ import DAO.SaborDAO;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 

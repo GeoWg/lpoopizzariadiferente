@@ -17,7 +17,7 @@ public class Status {
         this.id = id;
         this.descricao = descricao;
     }
-    
+
     public int getId() {
         return id;
     }

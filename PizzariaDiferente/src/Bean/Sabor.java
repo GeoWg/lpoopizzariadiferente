@@ -64,4 +64,10 @@ public class Sabor {
     public int getTipoInt(){
         return tipo.id;
     }
+
+    @Override
+    public String toString() {
+        return this.nome;
+    }
+    
 }
