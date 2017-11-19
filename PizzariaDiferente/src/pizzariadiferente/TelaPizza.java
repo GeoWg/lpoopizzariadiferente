@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
 public class TelaPizza extends javax.swing.JFrame {
 
     Forma forma = null;
-    NumberFormat formatter = new DecimalFormat("#0.00");  
+    NumberFormat formatter = new DecimalFormat("#0.00");
 
     /**
      * Creates new form TelaPizza
@@ -34,8 +34,8 @@ public class TelaPizza extends javax.swing.JFrame {
         initComponents();
         preencheCombo();
     }
-    
-    public void preencheCombo(){
+
+    public void preencheCombo() {
         SaborDAO sabordao = new SaborDAO();
         List<Sabor> sabor1 = sabordao.getAll();
         List<Sabor> sabor2 = sabordao.getAll();
@@ -209,6 +209,10 @@ public class TelaPizza extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code he
+        TelaPizza tp = new TelaPizza();
+        if (formasComboBox.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(tp, "Selecione o formato da pizza", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void ladoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ladoTextFieldActionPerformed
@@ -255,11 +259,42 @@ public class TelaPizza extends javax.swing.JFrame {
             forma.setArea(area);
             ladoTextField.setText(String.valueOf(formatter.format(forma.getMedida())));
         }
+        TelaPizza tp = new TelaPizza();
+        Double medida = Double.parseDouble(ladoTextField.getText());
+        Double area = Double.parseDouble(alfaTextField.getText());
+        if (area < 100 || area > 1600) {
+            JOptionPane.showMessageDialog(tp, "A área da pizza precisa estar entre 100 e 1600 cm²", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else {
+            switch (formasComboBox.getSelectedIndex()) {
+                case 1:
+                    if (medida < 7 || medida > 23) {
+                        JOptionPane.showMessageDialog(tp, "O raio do circulo precisa ter entre 7 e 23 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        ladoTextField.setText("");
+                        alfaTextField.setText("");
+                    }
+                    break;
+                case 2:
+                    if (medida < 10 || medida > 40) {
+                        JOptionPane.showMessageDialog(tp, "O lado do quadrado precisa ter entre 10 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        ladoTextField.setText("");
+                        alfaTextField.setText("");
+                    }
+                    break;
+                case 3:
+                    if (medida < 20 || medida > 60) {
+                        JOptionPane.showMessageDialog(tp, "O lado do triângulo precisa ter entre 20 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                        ladoTextField.setText("");
+                        alfaTextField.setText("");
+                    }
+                    break;
+            }
+        }
+
     }//GEN-LAST:event_alfaTextFieldFocusLost
 
     private void sabor2ComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sabor2ComboBoxFocusLost
         // TODO add your handling code here:
-        
+
         totalLabel.setText("Teste");
     }//GEN-LAST:event_sabor2ComboBoxFocusLost
 
