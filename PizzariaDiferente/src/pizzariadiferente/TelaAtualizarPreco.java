@@ -197,6 +197,8 @@ public class TelaAtualizarPreco extends javax.swing.JFrame {
             dao.update(t2);
             dao.update(t3);
             dispose();
+            TelaListaPedidos tp = new TelaListaPedidos();
+            tp.setVisible(true);
         }        
     }//GEN-LAST:event_atualizarButtonActionPerformed
 

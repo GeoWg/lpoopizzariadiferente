@@ -12,6 +12,7 @@ import Bean.Sabor;
 import Bean.Triangulo;
 import DAO.SaborDAO;
 import java.util.List;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
