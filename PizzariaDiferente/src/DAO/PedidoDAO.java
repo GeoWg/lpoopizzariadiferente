@@ -20,36 +20,77 @@ import java.util.List;
  * @author Felipe Moreno
  */
 public class PedidoDAO {
-    
-    private final String insertPedido = "INSERT INTO pedido (idCliente,idStatus) VALUES (?,?)";
-    private final String insertPizza = "INSERT INTO pedidoPizza (idPedido, idForma, tamanho, idSabor1, idSabor2, valor) VALUES (?,?,?,?,?,?)";
+
+    private final String insertPedido = "INSERT INTO pedido (idCliente, idStatus) VALUES (?,?)";
     private final String update = "UPDATE pedido SET idStatus = ? WHERE idPedido =  ?";
-    private final String byId = "SELECT * FROM pedido WHERE idPedido = ?";
+    private final String getById = "SELECT * FROM pedido WHERE idPedido = ?";
     private final String getAll = "SELECT * FROM pedido ORDER BY idPedido DESC";
     private final String getByIdStatus = "SELECT * FROM pedido  WHERE idStatus = ? ORDER BY idPedido DESC";
- 
-    public Pedido insertPedido(Pedido pedido){
+    private final String insertPedidoPizza = "INSERT INTO pedidopizza (idpedido, idforma, medida) VALUES (?,?,?)";
+       
+    public Pizza insertPedidoPizza(Pizza pizza){
+        Connection con = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try{
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(insertPedidoPizza, PreparedStatement.RETURN_GENERATED_KEYS);
+            PedidoDAO pedidodao = new PedidoDAO();
+            PizzaDAO pizzadao = new PizzaDAO();
+            FormaDAO formadao = new FormaDAO();
+            int idPedido = rs.getInt("idPedido");
+            int idForma = rs.getInt("idForma");
+            stmt.setInt(1, idPedido);
+            stmt.setInt(2, 2); //pegar o id da forma da forma dao
+            stmt.setDouble(3, 5); //pega a medida da pizza da pizza dao
+            
+        }catch (Exception ex) {
+            throw new RuntimeException("Erro. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
+        }
+        return pizza;
+    }
+    
+    public Pedido insertPedido(Pedido pedido) {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(insertPedido, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, pedido.getClienteId());
-            stmt.setInt(2, pedido.getStatusId());
+            stmt.setInt(1, pedido.getStatusId());
+            stmt.setInt(2, pedido.getClienteId());
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             pedido.setId(rs.getInt(1));
         } catch (Exception ex) {
-            throw new RuntimeException("Erro ao inserir no banco de dados. Origem="+ex.getMessage());
-        } finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
-            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+            throw new RuntimeException("Erro ao inserir no banco de dados. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
         }
         return pedido;
     }
-    
-    public Pedido updateStatus(Pedido pedido, int idStatus){
+
+    public Pedido updateStatus(Pedido pedido, int idStatus) {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
@@ -59,15 +100,23 @@ public class PedidoDAO {
             stmt.setInt(2, pedido.getId());
             stmt.executeUpdate();
         } catch (Exception ex) {
-            throw new RuntimeException("Erro ao inserir no banco de dados. Origem="+ex.getMessage());
-        } finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
-            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+            throw new RuntimeException("Erro ao inserir no banco de dados. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
         }
         return pedido;
     }
-    
-    public List<Pedido> getAll(){
+
+    public List<Pedido> getAll() {
         List<Pedido> pedidos = new ArrayList<Pedido>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -79,11 +128,11 @@ public class PedidoDAO {
             ClienteDAO cd = new ClienteDAO();
             StatusDAO sd = new StatusDAO();
             PizzaDAO pd = new PizzaDAO();
-            while(rs.next()){
+            while (rs.next()) {
                 int idPedido = rs.getInt("idPedido");
                 double valor = rs.getDouble("valor");
                 int idCliente = rs.getInt("idCliente");
-                int idStatus = rs.getInt("idStatus");    
+                int idStatus = rs.getInt("idStatus");
                 Cliente cli = cd.getById(idCliente);
                 Status st = sd.getById(idStatus);
                 List<Pizza> pizzas = pd.getByIdPedido(idPedido);
@@ -95,16 +144,23 @@ public class PedidoDAO {
                 pedidos.add(p);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Erro. Origem="+ex.getMessage());
-        } finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
-            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+            throw new RuntimeException("Erro. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
         }
         return pedidos;
     }
-    
-     public List<Pedido> getByIdStatus(int statusId){
-         
+
+    public List<Pedido> getByIdStatus(int statusId) {
         List<Pedido> pedidos = new ArrayList<Pedido>();
         Connection con = null;
         PreparedStatement stmt = null;
@@ -112,16 +168,16 @@ public class PedidoDAO {
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(getByIdStatus);
-            stmt.setInt(1,statusId);
+            stmt.setInt(1, statusId);
             rs = stmt.executeQuery();
             ClienteDAO cd = new ClienteDAO();
             StatusDAO sd = new StatusDAO();
             PizzaDAO pd = new PizzaDAO();
-            while(rs.next()){
+            while (rs.next()) {
                 int idPedido = rs.getInt("idPedido");
                 double valor = rs.getDouble("valor");
                 int idCliente = rs.getInt("idCliente");
-                int idStatus = rs.getInt("idStatus");    
+                int idStatus = rs.getInt("idStatus");
                 Cliente cli = cd.getById(idCliente);
                 Status st = sd.getById(idStatus);
                 List<Pizza> pizzas = pd.getByIdPedido(idPedido);
@@ -133,11 +189,50 @@ public class PedidoDAO {
                 pedidos.add(p);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Erro. Origem="+ex.getMessage());
-        } finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
-            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+            throw new RuntimeException("Erro. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
         }
         return pedidos;
+    }
+
+    public void insertPedidoPizza() {
+        Connection con = null;
+        PreparedStatement stmt = null;
+        try {
+            con = ConnectionFactory.getConnection();
+            stmt = con.prepareStatement(insertPedido, PreparedStatement.RETURN_GENERATED_KEYS);
+            PedidoDAO pedidodao = new PedidoDAO();
+            Pedido pedido = (Pedido) pedidodao.getAll();
+            stmt.setDouble(1, pedido.getValor());
+            stmt.setInt(2, pedido.getStatusId());
+            stmt.setInt(3, pedido.getClienteId());
+            stmt.executeUpdate();
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            pedido.setId(rs.getInt(1));
+        } catch (Exception ex) {
+            throw new RuntimeException("Erro ao inserir no banco de dados. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
+        }
     }
 }

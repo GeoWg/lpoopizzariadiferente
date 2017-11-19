@@ -23,12 +23,13 @@ import java.util.List;
  * @author dell-soncini
  */
 public class PizzaDAO {
-    
+
     private final String getByIdPedido = "SELECT * FROM pedidopizza WHERE idPedido = ?";
-    
-      public List<Pizza> getByIdPedido(int idPedido){
+    private final String insertPizzaSabor = "INSERT INTO pizzasabor (idpedidopizza, idsabor) VALUES (?,?)";
+
+    public List<Pizza> getByIdPedido(int idPedido) {
         List<Pizza> pizzas = new ArrayList<Pizza>();
-        Connection con = null;  
+        Connection con = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -37,32 +38,41 @@ public class PizzaDAO {
             stmt.setInt(1, idPedido);
             rs = stmt.executeQuery();
             SaborDAO sd = new SaborDAO();
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("idPedidoPizza");
                 int idForma = rs.getInt("idForma");
                 Forma forma = null;
-                if(idForma == FormaEnum.Quadrado.getValue()){
+                if (idForma == FormaEnum.Quadrado.getValue()) {
                     forma = new Quadrado();
-                    
-                }
-                else if (idForma == FormaEnum.Circulo.getValue()){
+
+                } else if (idForma == FormaEnum.Circulo.getValue()) {
                     forma = new Triangulo();
-                }
-                else{
+                } else {
                     forma = new Circulo();
                 }
-                forma.setMedida( rs.getDouble("medida"));
+                forma.setMedida(rs.getDouble("medida"));
                 List<Sabor> sabores = sd.getByIdPizza(id);
                 Pizza p = new Pizza(forma, sabores);
-                pizzas.add(p);              
+                pizzas.add(p);
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Erro. Origem="+ex.getMessage());
-        } finally{
-            try{stmt.close();}catch(Exception ex){System.out.println("Erro ao fechar stmt. Ex="+ex.getMessage());};
-            try{con.close();}catch(Exception ex){System.out.println("Erro ao fechar conexão. Ex="+ex.getMessage());};
+            throw new RuntimeException("Erro. Origem=" + ex.getMessage());
+        } finally {
+            try {
+                stmt.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
+            };
+            try {
+                con.close();
+            } catch (Exception ex) {
+                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
+            };
         }
         return pizzas;
     }
-    
+
+    public void insertPizzaSabor(int idPedidoPizza) {
+        
+    }
 }
