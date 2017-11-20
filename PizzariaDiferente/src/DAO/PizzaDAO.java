@@ -56,6 +56,7 @@ public class PizzaDAO {
             stmt.setInt(1, idPedido);
             stmt.setInt(2, pizza.getForma().getId());
             stmt.setDouble(3, pizza.getForma().getMedida());
+            stmt.executeUpdate();
             rs = stmt.getGeneratedKeys();
             rs.next();
             int idPedidoPizza = rs.getInt(1);
@@ -63,7 +64,6 @@ public class PizzaDAO {
             {
                 insertSabor(s,idPedidoPizza);
             }
-            stmt.executeUpdate();
         }catch (Exception ex) {
             throw new RuntimeException("Erro. Origem=" + ex.getMessage());
         } finally {
@@ -116,9 +116,5 @@ public class PizzaDAO {
             };
         }
         return pizzas;
-    }
-
-    public void insertPizzaSabor(int idPedidoPizza) {
-        
     }
 }

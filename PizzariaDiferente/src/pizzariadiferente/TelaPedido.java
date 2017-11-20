@@ -33,6 +33,18 @@ public class TelaPedido extends javax.swing.JFrame {
         enderecoProcuradoLabel.setText(p.getCliente().getEndereco());
         modeloTabela.setListaPizza(p.getPizzas());        
     }
+    
+    public void visualizar(Pedido pedido){
+        p = pedido;
+        clienteProcuradoLabel.setText(p.getCliente().getNome() + " " + p.getCliente().getSobreNome());
+        enderecoProcuradoLabel.setText(p.getCliente().getEndereco());
+        modeloTabela.setListaPizza(p.getPizzas());        
+        
+        finalizarButton.setVisible(false);
+        telefoneLabel.setVisible(false);
+        telefoneTextField.setVisible(false);
+        pesquisarButton.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,6 +68,7 @@ public class TelaPedido extends javax.swing.JFrame {
         finalizarButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        voltar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,6 +112,13 @@ public class TelaPedido extends javax.swing.JFrame {
         jTable1.setModel(modeloTabela);
         jScrollPane1.setViewportView(jTable1);
 
+        voltar.setText("Voltar");
+        voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                voltarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,7 +129,8 @@ public class TelaPedido extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(pedidoLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(telefoneLabel)
@@ -138,8 +159,13 @@ public class TelaPedido extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(8, 8, 8)
-                .addComponent(pedidoLabel)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addComponent(pedidoLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(voltar)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pesquisarButton, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -210,6 +236,13 @@ public class TelaPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_pesquisarButtonActionPerformed
 
+    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
+        // TODO add your handling code here:
+        TelaListaPedidos ti = new TelaListaPedidos();
+        dispose();
+        ti.setVisible(true);
+    }//GEN-LAST:event_voltarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,5 +293,6 @@ public class TelaPedido extends javax.swing.JFrame {
     private javax.swing.JLabel telefoneLabel;
     private javax.swing.JTextField telefoneTextField;
     private javax.swing.JLabel totalLabel;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

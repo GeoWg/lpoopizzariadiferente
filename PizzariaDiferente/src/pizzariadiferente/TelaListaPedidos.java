@@ -63,6 +63,7 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         Entregue = new javax.swing.JButton();
         StatusId = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        Visualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +117,13 @@ public class TelaListaPedidos extends javax.swing.JFrame {
             }
         });
 
+        Visualizar.setText("Visualizar");
+        Visualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VisualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +143,8 @@ public class TelaListaPedidos extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Novo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Visualizar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(Caminho)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,7 +173,8 @@ public class TelaListaPedidos extends javax.swing.JFrame {
                     .addComponent(Novo)
                     .addComponent(Caminho)
                     .addComponent(Entregue)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(Visualizar))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -229,6 +240,24 @@ public class TelaListaPedidos extends javax.swing.JFrame {
         telaPreco.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void VisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizarActionPerformed
+        // TODO add your handling code here:
+        
+          try {
+            int[] linhasSelecionadas = pedidoTable.getSelectedRows();
+            for (int i = 0; i < linhasSelecionadas.length; i++) {
+                Pedido pedido = modeloTabela.getPedido(linhasSelecionadas[i]);
+                TelaPedido tp = new TelaPedido();
+                tp.visualizar(pedido);
+                dispose();
+                tp.setVisible(true);
+                        
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar exclusão de contatos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_VisualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -269,6 +298,7 @@ public class TelaListaPedidos extends javax.swing.JFrame {
     private javax.swing.JButton Entregue;
     private javax.swing.JButton Novo;
     private javax.swing.JComboBox<String> StatusId;
+    private javax.swing.JButton Visualizar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
