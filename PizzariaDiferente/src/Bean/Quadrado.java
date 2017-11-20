@@ -42,4 +42,8 @@ public class Quadrado extends Forma{
         this.area = area;
     }
     
+    @Override
+    public String getNome(){
+        return "Quadrado";
+    }
 }

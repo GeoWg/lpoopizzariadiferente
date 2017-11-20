@@ -11,6 +11,7 @@ package Bean;
  */
 public abstract class Forma {
     
+    public abstract String getNome();
     public abstract double getArea();
     public abstract double getMedida();
     public abstract void setMedida(double medida);

@@ -41,7 +41,13 @@ public class Pizza {
     public double getPreco(){
         return forma.getArea() * getPrecoCm();
     }
-    
+    public String getStringSabor() {
+        String s = "";
+        for(int i = 0; i < sabores.size(); i ++){
+            s += sabores.get(i).getNome();
+        }
+        return s;
+    }
     public double getPrecoCm(){
         int soma = 0;
         for(int i = 0; i < sabores.size(); i ++){

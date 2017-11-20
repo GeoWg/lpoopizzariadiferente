@@ -39,5 +39,9 @@ public class Triangulo extends Forma{
     public void setArea(double area){
         this.area = area;
     }
+    @Override
+    public String getNome(){
+        return "Triangulo";
+    }
 }
 

@@ -13,7 +13,7 @@ public class Circulo extends Forma{
     
     public double raio;
     public double area;
-
+    
     public Circulo() {
     }
     
@@ -39,5 +39,10 @@ public class Circulo extends Forma{
     @Override
     public void setArea(double area){
         this.area = area;
+    }
+    
+    @Override
+    public String getNome(){
+        return "Circulo";
     }
 }
