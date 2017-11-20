@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import Bean.Sabor;
 import Bean.Status;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,8 +16,8 @@ import java.sql.ResultSet;
  * @author dell-soncini
  */
 public class StatusDAO {
-      private final String getStatusById = "SELECT * FROM status WHERE idStatus = ?";
-      
+        private final String getStatusById = "SELECT * FROM status WHERE idStatus = ?";
+     
       public Status getById(int id){
         Status s = null;
         Connection con = null;

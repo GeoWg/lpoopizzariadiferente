@@ -26,40 +26,8 @@ public class PedidoDAO {
     private final String getById = "SELECT * FROM pedido WHERE idPedido = ?";
     private final String getAll = "SELECT * FROM pedido ORDER BY idPedido DESC";
     private final String getByIdStatus = "SELECT * FROM pedido  WHERE idStatus = ? ORDER BY idPedido DESC";
-    private final String insertPedidoPizza = "INSERT INTO pedidopizza (idpedido, idforma, medida) VALUES (?,?,?)";
-       
-    public Pizza insertPedidoPizza(Pizza pizza){
-        Connection con = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        try{
-            con = ConnectionFactory.getConnection();
-            stmt = con.prepareStatement(insertPedidoPizza, PreparedStatement.RETURN_GENERATED_KEYS);
-            PedidoDAO pedidodao = new PedidoDAO();
-            PizzaDAO pizzadao = new PizzaDAO();
-            FormaDAO formadao = new FormaDAO();
-            int idPedido = rs.getInt("idPedido");
-            int idForma = rs.getInt("idForma");
-            stmt.setInt(1, idPedido);
-            stmt.setInt(2, 2); //pegar o id da forma da forma dao
-            stmt.setDouble(3, 5); //pega a medida da pizza da pizza dao
-            
-        }catch (Exception ex) {
-            throw new RuntimeException("Erro. Origem=" + ex.getMessage());
-        } finally {
-            try {
-                stmt.close();
-            } catch (Exception ex) {
-                System.out.println("Erro ao fechar stmt. Ex=" + ex.getMessage());
-            };
-            try {
-                con.close();
-            } catch (Exception ex) {
-                System.out.println("Erro ao fechar conexão. Ex=" + ex.getMessage());
-            };
-        }
-        return pizza;
-    }
+   
+  
     
     public Pedido insertPedido(Pedido pedido) {
         Connection con = null;
@@ -67,12 +35,17 @@ public class PedidoDAO {
         try {
             con = ConnectionFactory.getConnection();
             stmt = con.prepareStatement(insertPedido, PreparedStatement.RETURN_GENERATED_KEYS);
-            stmt.setInt(1, pedido.getStatusId());
-            stmt.setInt(2, pedido.getClienteId());
+            stmt.setInt(1, pedido.getClienteId());
+            stmt.setInt(2, 1);
             stmt.executeUpdate();
             ResultSet rs = stmt.getGeneratedKeys();
             rs.next();
             pedido.setId(rs.getInt(1));
+            PizzaDAO pd = new PizzaDAO();
+            for(Pizza p : pedido.getPizzas())
+            {
+                pd.insert(p,pedido.getId());
+            }            
         } catch (Exception ex) {
             throw new RuntimeException("Erro ao inserir no banco de dados. Origem=" + ex.getMessage());
         } finally {

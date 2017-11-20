@@ -57,11 +57,16 @@ public class Pizza {
         }
         return s;
     }
-    public double getPrecoCm(){
+    public double getPrecoCm(){  
         int soma = 0;
         for(int i = 0; i < sabores.size(); i ++){
             soma += sabores.get(i).getPreco();
         }
-        return soma/ sabores.size();
+        try{
+            return soma / sabores.size();
+        }catch(Exception e)
+        {
+            return 0;
+        }
     }
 }

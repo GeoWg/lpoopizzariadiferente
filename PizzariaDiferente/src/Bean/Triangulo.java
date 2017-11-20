@@ -33,15 +33,21 @@ public class Triangulo extends Forma{
     @Override
     public void setMedida(double lado){
         this.lado = lado;
+        this.area = getArea();
     }
     
     @Override
     public void setArea(double area){
         this.area = area;
+        this.lado = getMedida();
     }
     @Override
     public String getNome(){
         return "Triangulo";
+    }
+    @Override
+    public int getId(){
+        return 3;
     }
 }
 

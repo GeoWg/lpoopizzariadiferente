@@ -34,15 +34,21 @@ public class Circulo extends Forma{
     @Override
     public void setMedida(double raio){
         this.raio = raio;
+        this.area =  getArea();
     }
     
     @Override
     public void setArea(double area){
         this.area = area;
+        this.raio =  getMedida();
     }
     
     @Override
     public String getNome(){
         return "Circulo";
+    }
+    @Override
+    public int getId(){
+        return 1;
     }
 }

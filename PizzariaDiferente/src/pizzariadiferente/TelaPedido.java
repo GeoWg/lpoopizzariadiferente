@@ -8,6 +8,7 @@ package pizzariadiferente;
 import Bean.Cliente;
 import Bean.Pedido;
 import DAO.ClienteDAO;
+import DAO.PedidoDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -184,7 +185,9 @@ public class TelaPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_addPizzaButtonActionPerformed
 
     private void finalizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarButtonActionPerformed
-        TelaInicial ti = new TelaInicial();
+        PedidoDAO pd = new PedidoDAO();
+        pd.insertPedido(p);
+        TelaListaPedidos ti = new TelaListaPedidos();
         dispose();
         ti.setVisible(true);
     }//GEN-LAST:event_finalizarButtonActionPerformed
