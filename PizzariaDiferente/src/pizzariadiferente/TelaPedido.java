@@ -6,6 +6,7 @@
 package pizzariadiferente;
 
 import Bean.Cliente;
+import Bean.Pedido;
 import DAO.ClienteDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 public class TelaPedido extends javax.swing.JFrame {
 
     private ModeloTabelaPizza modeloTabela = new ModeloTabelaPizza();
+    private Pedido p = new Pedido();
     /**
      * Creates new form TelaPedido
      */
@@ -171,6 +173,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void addPizzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPizzaButtonActionPerformed
         TelaPizza tpi = new TelaPizza();
+        tpi.setPedido(p); 
         dispose();
         tpi.setVisible(true);
     }//GEN-LAST:event_addPizzaButtonActionPerformed
@@ -193,6 +196,7 @@ public class TelaPedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(tp, "Não há nenhum cliente cadastrado com esse número","ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }else{
+            p.setCliente(c);
             clienteProcuradoLabel.setText(c.getNome() + " " + c.getSobreNome());
             enderecoProcuradoLabel.setText(c.getEndereco());
         }

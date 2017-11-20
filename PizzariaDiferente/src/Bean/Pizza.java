@@ -22,6 +22,10 @@ public class Pizza {
         this.sabores = sabores;
     }
 
+    public Pizza() {
+       
+    }
+
     public Forma getForma() {
         return forma;
     }

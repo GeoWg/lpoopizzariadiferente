@@ -7,6 +7,8 @@ package pizzariadiferente;
 
 import Bean.Circulo;
 import Bean.Forma;
+import Bean.Pedido;
+import Bean.Pizza;
 import Bean.Quadrado;
 import Bean.Sabor;
 import Bean.Triangulo;
@@ -24,15 +26,19 @@ import javax.swing.JOptionPane;
  */
 public class TelaPizza extends javax.swing.JFrame {
 
-    Forma forma = null;
     NumberFormat formatter = new DecimalFormat("#0.00");  
-
+    Pedido pedido;
+    Pizza pizza = new Pizza();
     /**
      * Creates new form TelaPizza
      */
     public TelaPizza() {
         initComponents();
         preencheCombo();
+    }
+    
+    public void setPedido(Pedido pedido){
+        pedido = pedido;
     }
     
     public void preencheCombo(){
@@ -218,16 +224,16 @@ public class TelaPizza extends javax.swing.JFrame {
     private void ladoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ladoTextFieldFocusLost
         if (ladoTextField.getText().trim().length() > 0) {
             double lado = Double.parseDouble(ladoTextField.getText());
-            forma.setMedida(lado);
-            alfaTextField.setText(String.valueOf(formatter.format(forma.getArea())));
+            pizza.getForma().setMedida(lado);
+            alfaTextField.setText(String.valueOf(formatter.format(pizza.getForma().getArea())));
         }
     }//GEN-LAST:event_ladoTextFieldFocusLost
 
     private void formasComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formasComboBoxActionPerformed
         // TODO add your handling code here:
+        Forma forma =  null;
         switch (formasComboBox.getSelectedIndex()) {
             case 0:
-                forma = null;
                 ladoTextField.setText("");
                 alfaTextField.setText("");
                 break;
@@ -247,13 +253,14 @@ public class TelaPizza extends javax.swing.JFrame {
                 forma = new Triangulo();
                 break;
         }
+        pizza.setForma(forma);
     }//GEN-LAST:event_formasComboBoxActionPerformed
 
     private void alfaTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_alfaTextFieldFocusLost
         if (alfaTextField.getText().trim().length() > 0) {
             double area = Double.parseDouble(alfaTextField.getText());
-            forma.setArea(area);
-            ladoTextField.setText(String.valueOf(formatter.format(forma.getMedida())));
+            pizza.getForma().setArea(area);
+            ladoTextField.setText(String.valueOf(formatter.format(pizza.getForma().getMedida())));
         }
     }//GEN-LAST:event_alfaTextFieldFocusLost
 
