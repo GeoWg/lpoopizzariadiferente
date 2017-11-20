@@ -12,24 +12,23 @@ import java.util.List;
  * @author dell-soncini
  */
 public class Pizza {
-    
+
     private Forma forma;
     private List<Sabor> sabores;
-    
-    public Pizza(Forma forma, List<Sabor> sabores)
-    {
+
+    public Pizza(Forma forma, List<Sabor> sabores) {
         this.forma = forma;
         this.sabores = sabores;
     }
 
     public Pizza() {
-       
+
     }
 
     public Forma getForma() {
         return forma;
     }
-        
+
     public void setForma(Forma forma) {
         this.forma = forma;
     }
@@ -41,31 +40,40 @@ public class Pizza {
     public void setSabores(List<Sabor> sabores) {
         this.sabores = sabores;
     }
+
     public void addSabor(Sabor sabor) {
         sabores.add(sabor);
     }
+
     public void removeSabor(Sabor sabor) {
-        sabores.remove(sabores.size()-1);
+        sabores.remove(sabores.size() - 1);
     }
-    public double getPreco(){
+
+    public double getPreco() {
         return forma.getArea() * getPrecoCm();
     }
+
     public String getStringSabor() {
         String s = "";
-        for(int i = 0; i < sabores.size(); i ++){
-            s += sabores.get(i).getNome();
+        for (int i = 0; i < sabores.size(); i++) {
+            if (i == 0) {
+                s += sabores.get(i).getNome();
+            } else {
+                s += " / " + sabores.get(i).getNome();
+            }
+
         }
         return s;
     }
-    public double getPrecoCm(){  
-        int soma = 0;
-        for(int i = 0; i < sabores.size(); i ++){
+
+    public double getPrecoCm() {
+        double soma = 0;
+        for (int i = 0; i < sabores.size(); i++) {
             soma += sabores.get(i).getPreco();
         }
-        try{
+        try {
             return soma / sabores.size();
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
             return 0;
         }
     }
