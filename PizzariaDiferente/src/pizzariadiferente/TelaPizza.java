@@ -274,7 +274,7 @@ public class TelaPizza extends javax.swing.JFrame {
             double medida = Double.parseDouble(ladoTextField.getText());
             pizza.getForma().setMedida(medida);
             double area = pizza.getForma().getArea();
-            alfaTextField.setText(String.valueOf(pizza.getForma().getArea()));
+            alfaTextField.setText(String.valueOf(formatter.format(pizza.getForma().getArea())));
             TelaPizza tp = new TelaPizza();
             if (area < 100 || area > 1600) {
                 JOptionPane.showMessageDialog(tp, "A área da pizza precisa estar entre 100 e 1600 cm²", "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -338,8 +338,7 @@ public class TelaPizza extends javax.swing.JFrame {
             double area = Double.parseDouble(alfaTextField.getText());
             pizza.getForma().setArea(area);
             double medida =  pizza.getForma().getMedida();
-            ladoTextField.setText(String.valueOf(pizza.getForma().getMedida()));
-        
+            ladoTextField.setText(String.valueOf(formatter.format(pizza.getForma().getMedida())));
             TelaPizza tp = new TelaPizza();
             if (area < 100 || area > 1600) {
                 JOptionPane.showMessageDialog(tp, "A área da pizza precisa estar entre 100 e 1600 cm²", "ERRO", JOptionPane.ERROR_MESSAGE);

@@ -228,7 +228,7 @@ public class TelaListaPedidos extends javax.swing.JFrame {
 
     private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
         // TODO add your handling code here:
-        TelaInicial TI = new TelaInicial();
+        PizzariaDiferente TI = new PizzariaDiferente();
         dispose();
         TI.setVisible(true);
     }//GEN-LAST:event_voltarActionPerformed

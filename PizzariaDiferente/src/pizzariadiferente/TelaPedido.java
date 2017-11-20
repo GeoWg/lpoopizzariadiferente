@@ -21,30 +21,33 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private ModeloTabelaPizza modeloTabela = new ModeloTabelaPizza();
     private Pedido p = new Pedido();
+
     /**
      * Creates new form TelaPedido
      */
     public TelaPedido() {
         initComponents();
     }
-    public void setPedido(Pedido pedido){
+
+    public void setPedido(Pedido pedido) {
         p = pedido;
         clienteProcuradoLabel.setText(p.getCliente().getNome() + " " + p.getCliente().getSobreNome());
         enderecoProcuradoLabel.setText(p.getCliente().getEndereco());
-        modeloTabela.setListaPizza(p.getPizzas());        
+        modeloTabela.setListaPizza(p.getPizzas());
     }
-    
-    public void visualizar(Pedido pedido){
+
+    public void visualizar(Pedido pedido) {
         p = pedido;
         clienteProcuradoLabel.setText(p.getCliente().getNome() + " " + p.getCliente().getSobreNome());
         enderecoProcuradoLabel.setText(p.getCliente().getEndereco());
-        modeloTabela.setListaPizza(p.getPizzas());        
-        
+        modeloTabela.setListaPizza(p.getPizzas());
+
         finalizarButton.setVisible(false);
         telefoneLabel.setVisible(false);
         telefoneTextField.setVisible(false);
         pesquisarButton.setVisible(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -204,10 +207,15 @@ public class TelaPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addPizzaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addPizzaButtonActionPerformed
-        TelaPizza tpi = new TelaPizza();
-        tpi.setPedido(p); 
-        dispose();
-        tpi.setVisible(true);
+        TelaPedido tp = new TelaPedido();
+        if (clienteProcuradoLabel.getText().trim().length() <= 0) {
+            JOptionPane.showMessageDialog(tp, "É necessário selecionar um cliente", "ERRO", JOptionPane.ERROR_MESSAGE);
+        } else {
+            TelaPizza tpi = new TelaPizza();
+            tpi.setPedido(p);
+            dispose();
+            tpi.setVisible(true);
+        }
     }//GEN-LAST:event_addPizzaButtonActionPerformed
 
     private void finalizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_finalizarButtonActionPerformed
@@ -220,16 +228,16 @@ public class TelaPedido extends javax.swing.JFrame {
 
     private void pesquisarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarButtonActionPerformed
         ClienteDAO cd = new ClienteDAO();
-        TelaPedido tp = new TelaPedido();        
-        if (telefoneTextField.getText().trim().length() == 0 ){
-            JOptionPane.showMessageDialog(tp, "Voce precisa preencher o campo telefone","ERRO", JOptionPane.ERROR_MESSAGE);
+        TelaPedido tp = new TelaPedido();
+        if (telefoneTextField.getText().trim().length() == 0) {
+            JOptionPane.showMessageDialog(tp, "Voce precisa preencher o campo telefone", "ERRO", JOptionPane.ERROR_MESSAGE);
             return;
         }
         Cliente c = cd.getByTelefone(telefoneTextField.getText());
-        if (c.getId() == 0){
-            JOptionPane.showMessageDialog(tp, "Não há nenhum cliente cadastrado com esse número","ERRO", JOptionPane.ERROR_MESSAGE);
+        if (c.getId() == 0) {
+            JOptionPane.showMessageDialog(tp, "Não há nenhum cliente cadastrado com esse número", "ERRO", JOptionPane.ERROR_MESSAGE);
             return;
-        }else{
+        } else {
             p.setCliente(c);
             clienteProcuradoLabel.setText(c.getNome() + " " + c.getSobreNome());
             enderecoProcuradoLabel.setText(c.getEndereco());

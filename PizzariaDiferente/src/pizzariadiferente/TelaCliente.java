@@ -257,7 +257,7 @@ public class TelaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_TelefoneTextFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        TelaInicial TI = new TelaInicial();
+        PizzariaDiferente TI = new PizzariaDiferente();
         dispose();
         TI.setVisible(true);
         // TODO add your handling code here:
