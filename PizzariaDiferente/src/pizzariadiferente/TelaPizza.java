@@ -53,6 +53,10 @@ public class TelaPizza extends javax.swing.JFrame {
         List<Sabor> sabor2 = sabordao.getAll();
         sabor1ComboBox.setModel(new DefaultComboBoxModel(sabor1.toArray()));
         sabor2ComboBox.setModel(new DefaultComboBoxModel(sabor2.toArray()));
+        List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        pizza.setSabores(ls);
     }
 
     /**
@@ -134,6 +138,11 @@ public class TelaPizza extends javax.swing.JFrame {
         sabor2ComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 sabor2ComboBoxFocusLost(evt);
+            }
+        });
+        sabor2ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sabor2ComboBoxActionPerformed(evt);
             }
         });
 
@@ -236,8 +245,8 @@ public class TelaPizza extends javax.swing.JFrame {
                             .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton3))
                         .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addButton)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(valorLabel)))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -303,6 +312,7 @@ public class TelaPizza extends javax.swing.JFrame {
                         break;
                 }
             }
+            calculapreco();
         }
     }//GEN-LAST:event_ladoTextFieldFocusLost
 
@@ -367,22 +377,18 @@ public class TelaPizza extends javax.swing.JFrame {
                         break;
                 }
             }
+            calculapreco();
         }
     }//GEN-LAST:event_alfaTextFieldFocusLost
 
     private void sabor2ComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sabor2ComboBoxFocusLost
         // TODO add your handling code here:
-        List<Sabor> ls = new ArrayList<Sabor>();
-        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
-        ls.add(s);
-        if(qtd == 2) {
-            Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
-            ls.add(s2);
-        }
-        pizza.setSabores(ls);
-        totalLabel.setText(String.valueOf(pizza.getPreco()));
+     
     }//GEN-LAST:event_sabor2ComboBoxFocusLost
-
+    
+    private void calculapreco () {
+        totalLabel.setText(String.valueOf(pizza.getPreco()));
+    }
     private void sabor1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sabor1ComboBoxActionPerformed
         // TODO add your handling code here:
         List<Sabor> ls = new ArrayList<Sabor>();
@@ -393,7 +399,7 @@ public class TelaPizza extends javax.swing.JFrame {
             ls.add(s2);
         }
         pizza.setSabores(ls);
-        totalLabel.setText(String.valueOf(pizza.getPreco()));
+        calculapreco();
     }//GEN-LAST:event_sabor1ComboBoxActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -402,6 +408,14 @@ public class TelaPizza extends javax.swing.JFrame {
         sabor2Label.setVisible(true);
         jButton3.setVisible(true);
         qtd++;
+        List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        if(qtd == 2) {
+            Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
+            ls.add(s2);
+        }
+        pizza.setSabores(ls);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -410,7 +424,27 @@ public class TelaPizza extends javax.swing.JFrame {
         sabor2Label.setVisible(false);
         jButton3.setVisible(false);
         qtd--;
+         List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        if(qtd == 2) {
+            Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
+            ls.add(s2);
+        }
+        pizza.setSabores(ls);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void sabor2ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sabor2ComboBoxActionPerformed
+        // TODO add your handling code here:
+        List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
+        ls.add(s2);
+        
+        pizza.setSabores(ls);
+        calculapreco();
+    }//GEN-LAST:event_sabor2ComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
