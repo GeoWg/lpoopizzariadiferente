@@ -26,7 +26,12 @@ public class TelaPedido extends javax.swing.JFrame {
     public TelaPedido() {
         initComponents();
     }
-    
+    public void setPedido(Pedido pedido){
+        p = pedido;
+        clienteProcuradoLabel.setText(p.getCliente().getNome() + " " + p.getCliente().getSobreNome());
+        enderecoProcuradoLabel.setText(p.getCliente().getEndereco());
+        modeloTabela.setListaPizza(p.getPizzas());        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

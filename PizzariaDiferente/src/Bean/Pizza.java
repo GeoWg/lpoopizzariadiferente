@@ -41,7 +41,12 @@ public class Pizza {
     public void setSabores(List<Sabor> sabores) {
         this.sabores = sabores;
     }
-    
+    public void addSabor(Sabor sabor) {
+        sabores.add(sabor);
+    }
+    public void removeSabor(Sabor sabor) {
+        sabores.remove(sabores.size()-1);
+    }
     public double getPreco(){
         return forma.getArea() * getPrecoCm();
     }

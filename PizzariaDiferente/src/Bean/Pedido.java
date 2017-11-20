@@ -5,6 +5,7 @@
  */
 package Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class Pedido {
     public Status status;
 
     public Pedido() {
+        pizzas = new ArrayList<Pizza>();
     }
 
     public Pedido(int id, Cliente cliente, List<Pizza> pizzas, Status status) {
@@ -50,7 +52,9 @@ public class Pedido {
     public List<Pizza> getPizzas() {
         return pizzas;
     }
-
+    public void addPizza(Pizza pizza){
+        this.pizzas.add(pizza);
+    }
     public void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
     }

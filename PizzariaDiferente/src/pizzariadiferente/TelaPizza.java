@@ -15,6 +15,7 @@ import Bean.Triangulo;
 import DAO.SaborDAO;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -29,16 +30,21 @@ public class TelaPizza extends javax.swing.JFrame {
     NumberFormat formatter = new DecimalFormat("#0.00");  
     Pedido pedido;
     Pizza pizza = new Pizza();
+    int qtd = 1;
+
     /**
      * Creates new form TelaPizza
      */
     public TelaPizza() {
         initComponents();
         preencheCombo();
+        sabor2ComboBox.setVisible(false);
+        sabor2Label.setVisible(false);
+        jButton3.setVisible(false);
     }
     
     public void setPedido(Pedido pedido){
-        pedido = pedido;
+        this.pedido = pedido;
     }
     
     public void preencheCombo(){
@@ -58,10 +64,10 @@ public class TelaPizza extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         pizzaLabel = new javax.swing.JLabel();
         formaLabel = new javax.swing.JLabel();
         formasComboBox = new javax.swing.JComboBox<>();
-        tamanhoLabel = new javax.swing.JLabel();
         ladoLabel = new javax.swing.JLabel();
         ladoTextField = new javax.swing.JTextField();
         alfaLabel = new javax.swing.JLabel();
@@ -73,6 +79,10 @@ public class TelaPizza extends javax.swing.JFrame {
         addButton = new javax.swing.JButton();
         valorLabel = new javax.swing.JLabel();
         totalLabel = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        jButton1.setText("jButton1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,8 +97,6 @@ public class TelaPizza extends javax.swing.JFrame {
                 formasComboBoxActionPerformed(evt);
             }
         });
-
-        tamanhoLabel.setText("Tamanho");
 
         ladoLabel.setText("Lado/Raio");
 
@@ -114,6 +122,11 @@ public class TelaPizza extends javax.swing.JFrame {
         sabor1Label.setText("Sabor 1");
 
         sabor1ComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        sabor1ComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sabor1ComboBoxActionPerformed(evt);
+            }
+        });
 
         sabor2Label.setText("Sabor 2");
 
@@ -136,6 +149,20 @@ public class TelaPizza extends javax.swing.JFrame {
 
         totalLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
 
+        jButton2.setText("+");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("-");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,33 +170,41 @@ public class TelaPizza extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(24, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ladoLabel)
                             .addComponent(formaLabel)
                             .addComponent(sabor1Label)
                             .addComponent(sabor2Label)
-                            .addComponent(valorLabel)
-                            .addComponent(tamanhoLabel))
+                            .addComponent(valorLabel))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(addButton))
-                            .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(ladoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(alfaLabel)
                                 .addGap(18, 18, 18)
-                                .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(formasComboBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 457, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(237, 237, 237)
                         .addComponent(pizzaLabel)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {alfaTextField, ladoTextField});
@@ -182,32 +217,32 @@ public class TelaPizza extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaLabel)
                     .addComponent(formasComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(tamanhoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(ladoLabel)
                             .addComponent(ladoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(alfaLabel)
                             .addComponent(alfaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sabor1Label)
-                            .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(sabor1ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton2))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(sabor2Label)
-                            .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
+                            .addComponent(sabor2ComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3))
+                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(addButton)
                             .addComponent(valorLabel)))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(totalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGap(65, 65, 65))
         );
 
         pack();
@@ -215,6 +250,19 @@ public class TelaPizza extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code he
+        TelaPizza tp = new TelaPizza();
+        //tp.setPedido(pedido);
+        if (formasComboBox.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(tp, "Selecione o formato da pizza", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+        else{
+            TelaPedido Tpedido = new TelaPedido();
+            Tpedido.setPedido(pedido);
+            pedido.addPizza(pizza);
+            dispose();
+            Tpedido.setVisible(true);
+        }
+        
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void ladoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ladoTextFieldActionPerformed
@@ -223,9 +271,38 @@ public class TelaPizza extends javax.swing.JFrame {
 
     private void ladoTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ladoTextFieldFocusLost
         if (ladoTextField.getText().trim().length() > 0) {
-            double lado = Double.parseDouble(ladoTextField.getText());
-            pizza.getForma().setMedida(lado);
-            alfaTextField.setText(String.valueOf(formatter.format(pizza.getForma().getArea())));
+            double medida = Double.parseDouble(ladoTextField.getText());
+            pizza.getForma().setMedida(medida);
+            double area = pizza.getForma().getArea();
+            alfaTextField.setText(String.valueOf(pizza.getForma().getArea()));
+            TelaPizza tp = new TelaPizza();
+            if (area < 100 || area > 1600) {
+                JOptionPane.showMessageDialog(tp, "A área da pizza precisa estar entre 100 e 1600 cm²", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                switch (formasComboBox.getSelectedIndex()) {
+                    case 1:
+                        if (medida < 7 || medida > 23) {
+                            JOptionPane.showMessageDialog(tp, "O raio do circulo precisa ter entre 7 e 23 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                    case 2:
+                        if (medida < 10 || medida > 40) {
+                            JOptionPane.showMessageDialog(tp, "O lado do quadrado precisa ter entre 10 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                    case 3:
+                        if (medida < 20 || medida > 60) {
+                            JOptionPane.showMessageDialog(tp, "O lado do triângulo precisa ter entre 20 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                }
+            }
         }
     }//GEN-LAST:event_ladoTextFieldFocusLost
 
@@ -260,15 +337,81 @@ public class TelaPizza extends javax.swing.JFrame {
         if (alfaTextField.getText().trim().length() > 0) {
             double area = Double.parseDouble(alfaTextField.getText());
             pizza.getForma().setArea(area);
-            ladoTextField.setText(String.valueOf(formatter.format(pizza.getForma().getMedida())));
+            double medida =  pizza.getForma().getMedida();
+            ladoTextField.setText(String.valueOf(pizza.getForma().getMedida()));
+        
+            TelaPizza tp = new TelaPizza();
+            if (area < 100 || area > 1600) {
+                JOptionPane.showMessageDialog(tp, "A área da pizza precisa estar entre 100 e 1600 cm²", "ERRO", JOptionPane.ERROR_MESSAGE);
+            } else {
+                switch (formasComboBox.getSelectedIndex()) {
+                    case 1:
+                        if (medida < 7 || medida > 23) {
+                            JOptionPane.showMessageDialog(tp, "O raio do circulo precisa ter entre 7 e 23 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                    case 2:
+                        if (medida < 10 || medida > 40) {
+                            JOptionPane.showMessageDialog(tp, "O lado do quadrado precisa ter entre 10 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                    case 3:
+                        if (medida < 20 || medida > 60) {
+                            JOptionPane.showMessageDialog(tp, "O lado do triângulo precisa ter entre 20 e 40 cm", "ERRO", JOptionPane.ERROR_MESSAGE);
+                            ladoTextField.setText("");
+                            alfaTextField.setText("");
+                        }
+                        break;
+                }
+            }
         }
     }//GEN-LAST:event_alfaTextFieldFocusLost
 
     private void sabor2ComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_sabor2ComboBoxFocusLost
         // TODO add your handling code here:
-        
-        totalLabel.setText("Teste");
+        List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        if(qtd == 2) {
+            Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
+            ls.add(s2);
+        }
+        pizza.setSabores(ls);
+        totalLabel.setText(String.valueOf(pizza.getPreco()));
     }//GEN-LAST:event_sabor2ComboBoxFocusLost
+
+    private void sabor1ComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sabor1ComboBoxActionPerformed
+        // TODO add your handling code here:
+        List<Sabor> ls = new ArrayList<Sabor>();
+        Sabor s = (Sabor)sabor1ComboBox.getSelectedItem();
+        ls.add(s);
+        if(qtd == 2) {
+            Sabor s2 = (Sabor)sabor2ComboBox.getSelectedItem();
+            ls.add(s2);
+        }
+        pizza.setSabores(ls);
+        totalLabel.setText(String.valueOf(pizza.getPreco()));
+    }//GEN-LAST:event_sabor1ComboBoxActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        sabor2ComboBox.setVisible(true);
+        sabor2Label.setVisible(true);
+        jButton3.setVisible(true);
+        qtd++;
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        sabor2ComboBox.setVisible(false);
+        sabor2Label.setVisible(false);
+        jButton3.setVisible(false);
+        qtd--;
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,6 +454,9 @@ public class TelaPizza extends javax.swing.JFrame {
     private javax.swing.JTextField alfaTextField;
     private javax.swing.JLabel formaLabel;
     private javax.swing.JComboBox<String> formasComboBox;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel ladoLabel;
     private javax.swing.JTextField ladoTextField;
     private javax.swing.JLabel pizzaLabel;
@@ -318,7 +464,6 @@ public class TelaPizza extends javax.swing.JFrame {
     private javax.swing.JLabel sabor1Label;
     private javax.swing.JComboBox<String> sabor2ComboBox;
     private javax.swing.JLabel sabor2Label;
-    private javax.swing.JLabel tamanhoLabel;
     private javax.swing.JLabel totalLabel;
     private javax.swing.JLabel valorLabel;
     // End of variables declaration//GEN-END:variables
